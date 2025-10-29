@@ -15,6 +15,10 @@
         common通用工具
     </description>
 
+    <properties>
+        <hutool.version>5.8.38</hutool.version>
+    </properties>
+
     <dependencies>
 
         <!-- Spring框架基本的核心工具 -->
@@ -119,12 +123,11 @@
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
-
         <!-- hutool工具类 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.38</version>
+            <version>${hutool.version}</version>
         </dependency>
 
 
