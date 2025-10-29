@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import blog.common.config.RuoYiConfig;
+import blog.common.config.BlogServerConfig;
 import blog.common.constant.Constants;
 import blog.common.utils.DateUtils;
 import blog.common.utils.StringUtils;
@@ -74,7 +74,7 @@ public class FileUtils
      */
     public static String writeImportBytes(byte[] data) throws IOException
     {
-        return writeBytes(data, RuoYiConfig.getImportPath());
+        return writeBytes(data, BlogServerConfig.getImportPath());
     }
 
     /**

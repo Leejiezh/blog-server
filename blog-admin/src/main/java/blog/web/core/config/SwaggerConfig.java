@@ -3,7 +3,7 @@ package blog.web.core.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import blog.common.config.RuoYiConfig;
+import blog.common.config.BlogServerConfig;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -21,7 +21,7 @@ public class SwaggerConfig
 {
     /** 系统基础配置 */
     @Autowired
-    private RuoYiConfig ruoyiConfig;
+    private BlogServerConfig ruoyiConfig;
     
     /**
      * 自定义的 OpenAPI 对象

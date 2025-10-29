@@ -15,10 +15,6 @@
         common通用工具
     </description>
 
-    <properties>
-        <hutool.version>5.8.38</hutool.version>
-    </properties>
-
     <dependencies>
 
         <!-- Spring框架基本的核心工具 -->
@@ -127,7 +123,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
+            <version>5.8.38</version>
         </dependency>
 
 

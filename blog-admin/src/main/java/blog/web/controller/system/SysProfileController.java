@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import blog.common.annotation.Log;
-import blog.common.config.RuoYiConfig;
+import blog.common.config.BlogServerConfig;
 import blog.common.core.controller.BaseController;
 import blog.common.core.domain.AjaxResult;
 import blog.common.core.domain.entity.SysUser;
@@ -127,13 +127,13 @@ public class SysProfileController extends BaseController
         if (!file.isEmpty())
         {
             LoginUser loginUser = getLoginUser();
-            String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION, true);
+            String avatar = FileUploadUtils.upload(BlogServerConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION, true);
             if (userService.updateUserAvatar(loginUser.getUserId(), avatar))
             {
                 String oldAvatar = loginUser.getUser().getAvatar();
                 if (StringUtils.isNotEmpty(oldAvatar))
                 {
-                    FileUtils.deleteFile(RuoYiConfig.getProfile() + FileUtils.stripPrefix(oldAvatar));
+                    FileUtils.deleteFile(BlogServerConfig.getProfile() + FileUtils.stripPrefix(oldAvatar));
                 }
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", avatar);
