@@ -7,7 +7,7 @@ import blog.common.constant.Constants;
 /**
  * VelocityEngine工厂
  * 
- * @author ruoyi
+ * @author leejie
  */
 public class VelocityInitializer
 {

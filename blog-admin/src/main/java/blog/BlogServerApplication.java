@@ -6,14 +6,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * 启动程序
- * 
- * @author ruoyi
+ *
+ * @author leejie
  */
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class BlogServerApplication
-{
-    public static void main(String[] args)
-    {
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+public class BlogServerApplication {
+    public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(BlogServerApplication.class, args);
         System.out.println("~~~~后台项目启动成功~~~~");

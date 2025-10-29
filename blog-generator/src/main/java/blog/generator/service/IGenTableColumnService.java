@@ -6,7 +6,7 @@ import blog.generator.domain.GenTableColumn;
 /**
  * 业务字段 服务层
  * 
- * @author ruoyi
+ * @author leejie
  */
 public interface IGenTableColumnService
 {

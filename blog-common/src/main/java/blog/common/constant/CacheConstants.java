@@ -2,11 +2,10 @@ package blog.common.constant;
 
 /**
  * 缓存的key 常量
- * 
- * @author ruoyi
+ *
+ * @author leejie
  */
-public class CacheConstants
-{
+public class CacheConstants {
     /**
      * 登录用户 redis key
      */

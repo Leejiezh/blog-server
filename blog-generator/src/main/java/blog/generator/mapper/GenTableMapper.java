@@ -6,7 +6,7 @@ import blog.generator.domain.GenTable;
 /**
  * 业务 数据层
  * 
- * @author ruoyi
+ * @author leejie
  */
 public interface GenTableMapper
 {

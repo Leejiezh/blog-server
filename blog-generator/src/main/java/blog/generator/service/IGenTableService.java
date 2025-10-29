@@ -7,7 +7,7 @@ import blog.generator.domain.GenTable;
 /**
  * 业务 服务层
  * 
- * @author ruoyi
+ * @author leejie
  */
 public interface IGenTableService
 {

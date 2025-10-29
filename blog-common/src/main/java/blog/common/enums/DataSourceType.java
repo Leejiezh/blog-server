@@ -2,11 +2,10 @@ package blog.common.enums;
 
 /**
  * 数据源
- * 
- * @author ruoyi
+ *
+ * @author leejie
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */
