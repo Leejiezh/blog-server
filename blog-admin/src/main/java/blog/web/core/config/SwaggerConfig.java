@@ -22,7 +22,7 @@ public class SwaggerConfig {
      * 系统基础配置
      */
     @Autowired
-    private BlogServerConfig ruoyiConfig;
+    private BlogServerConfig blogConfig;
 
     /**
      * 自定义的 OpenAPI 对象
@@ -51,12 +51,12 @@ public class SwaggerConfig {
     public Info getApiInfo() {
         return new Info()
                 // 设置标题
-                .title("标题：若依管理系统_接口文档")
+                .title("标题：LEEJIE管理系统_接口文档")
                 // 描述
                 .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
                 // 作者信息
-                .contact(new Contact().name(ruoyiConfig.getName()))
+                .contact(new Contact().name(blogConfig.getName()))
                 // 版本
-                .version("版本号:" + ruoyiConfig.getVersion());
+                .version("版本号:" + blogConfig.getVersion());
     }
 }
