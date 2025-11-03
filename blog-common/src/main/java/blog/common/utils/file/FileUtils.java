@@ -226,7 +226,7 @@ public class FileUtils {
     }
 
     /**
-     * 获取文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi.png
+     * 获取文件名称 /profile/upload/2022/04/16/blog.png -- blog.png
      *
      * @param fileName 路径名称
      * @return 没有文件路径的名称
@@ -242,7 +242,7 @@ public class FileUtils {
     }
 
     /**
-     * 获取不带后缀文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi
+     * 获取不带后缀文件名称 /profile/upload/2022/04/16/blog.png -- blog
      *
      * @param fileName 路径名称
      * @return 没有文件路径和后缀的名称
