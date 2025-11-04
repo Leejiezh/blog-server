@@ -15,6 +15,10 @@
         common通用工具
     </description>
 
+    <properties>
+        <mybatis-plus.version>3.5.13</mybatis-plus.version>
+    </properties>
+
     <dependencies>
 
         <!-- Spring框架基本的核心工具 -->
@@ -126,6 +130,12 @@
             <version>5.8.38</version>
         </dependency>
 
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
 
     </dependencies>
 
