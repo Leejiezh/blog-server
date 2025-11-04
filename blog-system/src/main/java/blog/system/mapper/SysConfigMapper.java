@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.system.domain.SysConfig;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 参数配置 数据层
  *
  * @author leejie
  */
-public interface SysConfigMapper {
+public interface SysConfigMapper extends BaseMapper<SysConfig> {
     /**
      * 查询参数配置信息
      *
