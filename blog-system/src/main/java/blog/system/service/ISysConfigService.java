@@ -2,6 +2,7 @@ package blog.system.service;
 
 import java.util.List;
 
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysConfig;
 
 /**
@@ -9,7 +10,7 @@ import blog.system.domain.SysConfig;
  *
  * @author leejie
  */
-public interface ISysConfigService {
+public interface ISysConfigService extends BaseService<SysConfig> {
     /**
      * 查询参数配置信息
      *

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import javax.sql.DataSource;
 
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -92,19 +93,19 @@ public class MyBatisConfig {
         return resources.toArray(new Resource[resources.size()]);
     }
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
-        String mapperLocations = env.getProperty("mybatis.mapperLocations");
-        String configLocation = env.getProperty("mybatis.configLocation");
-        typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
-        VFS.addImplClass(SpringBootVFS.class);
-
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
-        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
-        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
-        return sessionFactory.getObject();
-    }
+//    @Bean
+//    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//        String typeAliasesPackage = env.getProperty("mybatis-plus.typeAliasesPackage");
+//        String mapperLocations = env.getProperty("mybatis-plus.mapperLocations");
+//        String configLocation = env.getProperty("mybatis-plus.configLocation");
+//        typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
+//        VFS.addImplClass(SpringBootVFS.class);
+//
+//        final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource);
+//        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
+//        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+//        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+//        return sessionFactory.getObject();
+//    }
 }
