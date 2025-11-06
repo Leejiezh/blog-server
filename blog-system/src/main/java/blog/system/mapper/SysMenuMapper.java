@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import blog.common.core.domain.entity.SysMenu;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 菜单表 数据层
  *
  * @author leejie
  */
-public interface SysMenuMapper {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
     /**
      * 查询系统菜单列表
      *

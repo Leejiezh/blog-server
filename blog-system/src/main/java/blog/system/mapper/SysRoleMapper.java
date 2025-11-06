@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysRole;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 角色表 数据层
  *
  * @author leejie
  */
-public interface SysRoleMapper {
+public interface SysRoleMapper extends BaseMapper<SysRole> {
     /**
      * 根据条件分页查询角色数据
      *

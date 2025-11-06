@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import blog.common.core.domain.entity.SysDept;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 部门管理 数据层
  *
  * @author leejie
  */
-public interface SysDeptMapper {
+public interface SysDeptMapper extends BaseMapper<SysDept> {
     /**
      * 查询部门管理数据
      *

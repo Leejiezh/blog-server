@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import blog.common.constant.UserConstants;
 import blog.common.core.domain.entity.SysDictData;
 import blog.common.core.domain.entity.SysDictType;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.common.exception.ServiceException;
 import blog.common.utils.DictUtils;
 import blog.common.utils.StringUtils;
@@ -25,7 +26,7 @@ import blog.system.service.ISysDictTypeService;
  * @author leejie
  */
 @Service
-public class SysDictTypeServiceImpl implements ISysDictTypeService {
+public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
     @Autowired
     private SysDictTypeMapper dictTypeMapper;
 

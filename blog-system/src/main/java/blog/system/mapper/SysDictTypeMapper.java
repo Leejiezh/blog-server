@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysDictType;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 字典表 数据层
  *
  * @author leejie
  */
-public interface SysDictTypeMapper {
+public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
     /**
      * 根据条件分页查询字典类型
      *

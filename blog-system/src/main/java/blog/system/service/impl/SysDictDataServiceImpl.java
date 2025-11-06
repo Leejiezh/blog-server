@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import blog.common.core.domain.entity.SysDictData;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.common.utils.DictUtils;
 import blog.system.mapper.SysDictDataMapper;
 import blog.system.service.ISysDictDataService;
@@ -15,7 +16,7 @@ import blog.system.service.ISysDictDataService;
  * @author leejie
  */
 @Service
-public class SysDictDataServiceImpl implements ISysDictDataService {
+public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
     @Autowired
     private SysDictDataMapper dictDataMapper;
 

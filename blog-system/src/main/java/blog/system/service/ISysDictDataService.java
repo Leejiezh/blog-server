@@ -3,13 +3,14 @@ package blog.system.service;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysDictData;
+import blog.common.core.service.BaseService;
 
 /**
  * 字典 业务层
  *
  * @author leejie
  */
-public interface ISysDictDataService {
+public interface ISysDictDataService extends BaseService<SysDictData> {
     /**
      * 根据条件分页查询字典数据
      *

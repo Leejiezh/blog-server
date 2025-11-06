@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import blog.common.core.domain.entity.SysUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 用户表 数据层
  *
  * @author leejie
  */
-public interface SysUserMapper {
+public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据条件分页查询用户列表
      *

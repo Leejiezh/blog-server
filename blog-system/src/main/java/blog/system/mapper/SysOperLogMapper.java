@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.system.domain.SysOperLog;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 操作日志 数据层
  *
  * @author leejie
  */
-public interface SysOperLogMapper {
+public interface SysOperLogMapper extends BaseMapper<SysOperLog> {
     /**
      * 新增操作日志
      *

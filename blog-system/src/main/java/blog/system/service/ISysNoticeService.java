@@ -2,6 +2,7 @@ package blog.system.service;
 
 import java.util.List;
 
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysNotice;
 
 /**
@@ -9,7 +10,7 @@ import blog.system.domain.SysNotice;
  *
  * @author leejie
  */
-public interface ISysNoticeService {
+public interface ISysNoticeService extends BaseService<SysNotice> {
     /**
      * 查询公告信息
      *

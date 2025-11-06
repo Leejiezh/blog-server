@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.system.domain.SysLogininfor;
 import blog.system.mapper.SysLogininforMapper;
 import blog.system.service.ISysLogininforService;
@@ -14,7 +15,7 @@ import blog.system.service.ISysLogininforService;
  * @author leejie
  */
 @Service
-public class SysLogininforServiceImpl implements ISysLogininforService {
+public class SysLogininforServiceImpl extends BaseServiceImpl<SysLogininforMapper, SysLogininfor> implements ISysLogininforService {
 
     @Autowired
     private SysLogininforMapper logininforMapper;

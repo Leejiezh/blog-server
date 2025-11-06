@@ -4,13 +4,14 @@ import java.util.List;
 
 import blog.common.core.domain.entity.SysDictData;
 import blog.common.core.domain.entity.SysDictType;
+import blog.common.core.service.BaseService;
 
 /**
  * 字典 业务层
  *
  * @author leejie
  */
-public interface ISysDictTypeService {
+public interface ISysDictTypeService extends BaseService<SysDictType> {
     /**
      * 根据条件分页查询字典类型
      *

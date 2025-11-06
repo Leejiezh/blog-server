@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import blog.common.core.domain.entity.SysRole;
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysUserRole;
 
 /**
@@ -11,7 +12,7 @@ import blog.system.domain.SysUserRole;
  *
  * @author leejie
  */
-public interface ISysRoleService {
+public interface ISysRoleService extends BaseService<SysRole> {
     /**
      * 根据条件分页查询角色数据
      *

@@ -17,6 +17,7 @@ import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysMenu;
 import blog.common.core.domain.entity.SysRole;
 import blog.common.core.domain.entity.SysUser;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.common.utils.SecurityUtils;
 import blog.common.utils.StringUtils;
 import blog.system.domain.vo.MetaVo;
@@ -32,7 +33,7 @@ import blog.system.service.ISysMenuService;
  * @author leejie
  */
 @Service
-public class SysMenuServiceImpl implements ISysMenuService {
+public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
     public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
     @Autowired

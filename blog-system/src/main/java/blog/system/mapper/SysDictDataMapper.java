@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import blog.common.core.domain.entity.SysDictData;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 字典表 数据层
  *
  * @author leejie
  */
-public interface SysDictDataMapper {
+public interface SysDictDataMapper extends BaseMapper<SysDictData> {
     /**
      * 根据条件分页查询字典数据
      *

@@ -2,6 +2,7 @@ package blog.system.service;
 
 import java.util.List;
 
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysOperLog;
 
 /**
@@ -9,7 +10,7 @@ import blog.system.domain.SysOperLog;
  *
  * @author leejie
  */
-public interface ISysOperLogService {
+public interface ISysOperLogService extends BaseService<SysOperLog> {
     /**
      * 新增操作日志
      *
