@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.system.domain.SysNotice;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 通知公告表 数据层
  *
  * @author leejie
  */
-public interface SysNoticeMapper {
+public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     /**
      * 查询公告信息
      *

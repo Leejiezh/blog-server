@@ -4,13 +4,14 @@ import java.util.List;
 
 import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysDept;
+import blog.common.core.service.BaseService;
 
 /**
  * 部门管理 服务层
  *
  * @author leejie
  */
-public interface ISysDeptService {
+public interface ISysDeptService extends BaseService<SysDept> {
     /**
      * 查询部门管理数据
      *

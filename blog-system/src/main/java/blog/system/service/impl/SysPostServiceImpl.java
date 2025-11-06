@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import blog.common.constant.UserConstants;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.common.exception.ServiceException;
 import blog.common.utils.StringUtils;
 import blog.system.domain.SysPost;
@@ -18,7 +19,7 @@ import blog.system.service.ISysPostService;
  * @author leejie
  */
 @Service
-public class SysPostServiceImpl implements ISysPostService {
+public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> implements ISysPostService {
     @Autowired
     private SysPostMapper postMapper;
 

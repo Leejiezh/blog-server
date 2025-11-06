@@ -2,6 +2,7 @@ package blog.system.service;
 
 import java.util.List;
 
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysPost;
 
 /**
@@ -9,7 +10,7 @@ import blog.system.domain.SysPost;
  *
  * @author leejie
  */
-public interface ISysPostService {
+public interface ISysPostService extends BaseService<SysPost> {
     /**
      * 查询岗位信息集合
      *

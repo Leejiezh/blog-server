@@ -5,6 +5,7 @@ import java.util.Set;
 
 import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysMenu;
+import blog.common.core.service.BaseService;
 import blog.system.domain.vo.RouterVo;
 
 /**
@@ -12,7 +13,7 @@ import blog.system.domain.vo.RouterVo;
  *
  * @author leejie
  */
-public interface ISysMenuService {
+public interface ISysMenuService extends BaseService<SysMenu> {
     /**
      * 根据用户查询系统菜单列表
      *

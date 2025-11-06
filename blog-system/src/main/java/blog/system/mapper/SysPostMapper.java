@@ -3,13 +3,14 @@ package blog.system.mapper;
 import java.util.List;
 
 import blog.system.domain.SysPost;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 岗位信息 数据层
  *
  * @author leejie
  */
-public interface SysPostMapper {
+public interface SysPostMapper extends BaseMapper<SysPost> {
     /**
      * 查询岗位数据集合
      *

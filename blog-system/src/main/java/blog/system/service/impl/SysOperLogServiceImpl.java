@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.system.domain.SysOperLog;
 import blog.system.mapper.SysOperLogMapper;
 import blog.system.service.ISysOperLogService;
@@ -14,7 +15,7 @@ import blog.system.service.ISysOperLogService;
  * @author leejie
  */
 @Service
-public class SysOperLogServiceImpl implements ISysOperLogService {
+public class SysOperLogServiceImpl extends BaseServiceImpl<SysOperLogMapper, SysOperLog> implements ISysOperLogService {
     @Autowired
     private SysOperLogMapper operLogMapper;
 

@@ -2,6 +2,7 @@ package blog.system.service;
 
 import java.util.List;
 
+import blog.common.core.service.BaseService;
 import blog.system.domain.SysLogininfor;
 
 /**
@@ -9,7 +10,7 @@ import blog.system.domain.SysLogininfor;
  *
  * @author leejie
  */
-public interface ISysLogininforService {
+public interface ISysLogininforService extends BaseService<SysLogininfor> {
     /**
      * 新增系统登录日志
      *

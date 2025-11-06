@@ -13,6 +13,7 @@ import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysDept;
 import blog.common.core.domain.entity.SysRole;
 import blog.common.core.domain.entity.SysUser;
+import blog.common.core.service.impl.BaseServiceImpl;
 import blog.common.core.text.Convert;
 import blog.common.exception.ServiceException;
 import blog.common.utils.SecurityUtils;
@@ -28,7 +29,7 @@ import blog.system.service.ISysDeptService;
  * @author leejie
  */
 @Service
-public class SysDeptServiceImpl implements ISysDeptService {
+public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
     @Autowired
     private SysDeptMapper deptMapper;
 

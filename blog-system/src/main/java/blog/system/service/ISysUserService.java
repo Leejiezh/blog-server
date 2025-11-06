@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysUser;
+import blog.common.core.service.BaseService;
 
 /**
  * 用户 业务层
  *
  * @author leejie
  */
-public interface ISysUserService {
+public interface ISysUserService extends BaseService<SysUser> {
     /**
      * 根据条件分页查询用户列表
      *
