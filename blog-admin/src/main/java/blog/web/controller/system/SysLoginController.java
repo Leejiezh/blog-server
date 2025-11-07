@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.constant.Constants;
-import blog.common.core.domain.AjaxResult;
+import blog.common.core.domain.Result;
 import blog.common.core.domain.entity.SysMenu;
 import blog.common.core.domain.entity.SysUser;
 import blog.common.core.domain.model.LoginBody;
@@ -54,8 +54,8 @@ public class SysLoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginBody loginBody) {
-        AjaxResult ajax = AjaxResult.success();
+    public Result login(@RequestBody LoginBody loginBody) {
+        Result ajax = Result.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
                 loginBody.getUuid());
@@ -69,7 +69,7 @@ public class SysLoginController {
      * @return 用户信息
      */
     @GetMapping("getInfo")
-    public AjaxResult getInfo() {
+    public Result getInfo() {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         SysUser user = loginUser.getUser();
         // 角色集合
@@ -80,7 +80,7 @@ public class SysLoginController {
             loginUser.setPermissions(permissions);
             tokenService.refreshToken(loginUser);
         }
-        AjaxResult ajax = AjaxResult.success();
+        Result ajax = Result.success();
         ajax.put("user", user);
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
@@ -95,10 +95,10 @@ public class SysLoginController {
      * @return 路由信息
      */
     @GetMapping("getRouters")
-    public AjaxResult getRouters() {
+    public Result getRouters() {
         Long userId = SecurityUtils.getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
-        return AjaxResult.success(menuService.buildMenus(menus));
+        return Result.success(menuService.buildMenus(menus));
     }
 
     // 检查初始密码是否提醒修改
