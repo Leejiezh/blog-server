@@ -1,9 +1,9 @@
 package blog.common.utils;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import blog.common.core.domain.entity.SysUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -95,14 +95,18 @@ public class SecurityUtils {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
+
     /**
-     * 是否为管理员
+     * 判断当前登录人是否为管理员
      *
-     * @param userId 用户ID
      * @return 结果
      */
-    public static boolean isAdmin(Long userId) {
-        return userId != null && 1L == userId;
+    public static boolean isAdmin() {
+        LoginUser loginUser = getLoginUser();
+        if (loginUser == null || loginUser.getUser() == null){
+            throw new ServiceException("未获取到当前用户信息", HttpStatus.UNAUTHORIZED);
+        }
+        return loginUser.getUser().getRoles().stream().anyMatch(x -> x.getRoleKey().equals("lee-admin"));
     }
 
     /**

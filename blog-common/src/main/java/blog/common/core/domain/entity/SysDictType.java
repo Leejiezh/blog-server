@@ -8,12 +8,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
 import blog.common.core.domain.BaseEntity;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 字典类型表 sys_dict_type
  *
  * @author leejie
  */
+@Alias("SysDictType")
 public class SysDictType extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

@@ -36,6 +36,13 @@ public class PermitAllUrlProperties implements InitializingBean, ApplicationCont
 
     @Override
     public void afterPropertiesSet() {
+    /*
+        RequestMappingHandlerMapping
+        负责「扫描 + 注册 + 匹配」所有带有 @RequestMapping 的方法
+        它从缓存的映射表中查找匹配的路径；
+        找到匹配的 HandlerMethod；
+        返回给 DispatcherServlet，进入后续的调用链（参数绑定 → 拦截器 → 控制器执行）
+    */
         RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 

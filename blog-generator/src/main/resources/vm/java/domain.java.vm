@@ -10,6 +10,7 @@ import blog.common.annotation.Excel;
 import blog.common.core.domain.BaseEntity;
 #elseif($table.tree)
 import blog.common.core.domain.TreeEntity;
+import org.apache.ibatis.type.Alias;
 #end
 
 /**
@@ -23,8 +24,8 @@ import blog.common.core.domain.TreeEntity;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
-public class ${ClassName} extends ${Entity}
-{
+@Alias("${ClassName}")
+public class ${ClassName} extends ${Entity} {
     private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)

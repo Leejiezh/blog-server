@@ -9,12 +9,14 @@ import jakarta.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import blog.common.core.domain.BaseEntity;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 菜单权限表 sys_menu
  *
  * @author leejie
  */
+@Alias("SysMenu")
 public class SysMenu extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

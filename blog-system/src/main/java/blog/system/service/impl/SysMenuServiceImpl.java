@@ -120,7 +120,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
     @Override
     public List<SysMenu> selectMenuTreeByUserId(Long userId) {
         List<SysMenu> menus = null;
-        if (SecurityUtils.isAdmin(userId)) {
+        if (SecurityUtils.isAdmin()) {
             menus = menuMapper.selectMenuTreeAll();
         } else {
             menus = menuMapper.selectMenuTreeByUserId(userId);

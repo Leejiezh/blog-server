@@ -1,6 +1,7 @@
 package ${packageName}.service;
 
 import java.util.List;
+import blog.common.core.service.BaseService;
 import ${packageName}.domain.${ClassName};
 
 /**
@@ -9,7 +10,7 @@ import ${packageName}.domain.${ClassName};
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service 
+public interface I${ClassName}Service extends BaseService<${ClassName}>
 {
     /**
      * 查询${functionName}
