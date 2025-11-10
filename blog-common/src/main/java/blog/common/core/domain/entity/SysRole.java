@@ -10,12 +10,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
 import blog.common.core.domain.BaseEntity;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 角色表 sys_role
  *
  * @author leejie
  */
+@Alias("SysRole")
 public class SysRole extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

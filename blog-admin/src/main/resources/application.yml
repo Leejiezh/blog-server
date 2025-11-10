@@ -2,7 +2,7 @@
 blog:
   # 名称
   name: blog-server
-  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  # 文件路径 示例（ Windows配置D:/leejie/uploadPath，Linux配置 /home/leejie/uploadPath）
   profile: D:/blog-file/uploadPath
   # 获取ip地址开关
   addressEnabled: false
@@ -60,19 +60,20 @@ spring:
   devtools:
     restart:
       # 热部署开关
-      enabled: true
+      enabled: false
   data:
     # redis 配置
     redis:
       # 地址
-      host: r-2vcq4sw64c0qjjrn55pd.redis.cn-chengdu.rds.aliyuncs.com
+      # r-2vcq4sw64c0qjjrn55pd.redis.cn-chengdu.rds.aliyuncs.com
+      host: localhost
       # 端口，默认为6379
       port: 6379
       # 数据库索引
-      database: 99
+      database: 1
       # 密码
-      username: brxredis
-      password: Brx123456
+#      username: brxredis
+#      password: Brx123456
       # 连接超时时间
       timeout: 10s
       lettuce:
@@ -96,13 +97,24 @@ token:
   expireTime: 30
 
 # MyBatis配置
-mybatis:
-  # 搜索指定包别名
+#mybatis:
+#  # 搜索指定包别名
+#  typeAliasesPackage: blog.**.domain
+#  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+#  mapperLocations: classpath*:mapper/**/*Mapper.xml
+#  # 加载全局的配置文件
+#  configLocation: classpath:mybatis/mybatis-config.xml
+
+mybatis-plus:
+  # 配置要扫描的xml文件目录，classpath* 代表所有模块的resources目录 classpath 不加星号代表当前模块下的resources目录
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  # 实体扫描，*通配符
   typeAliasesPackage: blog.**.domain
-  # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath*:mapper/**/*Mapper.xml
-  # 加载全局的配置文件
-  configLocation: classpath:mybatis/mybatis-config.xml
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 
 # PageHelper分页插件
 pagehelper:
@@ -129,7 +141,7 @@ referer:
   # 防盗链开关
   enabled: false
   # 允许的域名列表
-  allowed-domains: localhost,127.0.0.1,ruoyi.vip,www.ruoyi.vip
+  allowed-domains: localhost,127.0.0.1
 
 # 防止XSS攻击
 xss:

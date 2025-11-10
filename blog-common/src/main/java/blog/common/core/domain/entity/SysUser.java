@@ -13,12 +13,14 @@ import blog.common.annotation.Excel.Type;
 import blog.common.annotation.Excels;
 import blog.common.core.domain.BaseEntity;
 import blog.common.xss.Xss;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 用户对象 sys_user
  *
  * @author leejie
  */
+@Alias("SysUser")
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
