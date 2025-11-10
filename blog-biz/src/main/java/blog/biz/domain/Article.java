@@ -1,5 +1,6 @@
 package blog.biz.domain;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import blog.common.annotation.Excel;
@@ -54,7 +55,7 @@ public class Article extends BaseEntity {
     private Integer isFeatured;
 
     /** 是否删除  0否 1是 */
-    @Excel(name = "是否删除  0否 1是")
+    @TableLogic
     private Integer isDelete;
 
     /** 状态值 1公开 2私密 3草稿 */
