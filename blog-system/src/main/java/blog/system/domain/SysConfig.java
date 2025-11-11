@@ -1,5 +1,6 @@
 package blog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,6 +20,7 @@ public class SysConfig extends BaseEntity {
     /**
      * 参数主键
      */
+    @TableId
     @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
     private Long configId;
 

@@ -2,6 +2,7 @@ package blog.system.domain;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
@@ -18,6 +19,7 @@ public class SysLogininfor extends BaseEntity {
     /**
      * ID
      */
+    @TableId(value = "info_id")
     @Excel(name = "序号", cellType = ColumnType.NUMERIC)
     private Long infoId;
 

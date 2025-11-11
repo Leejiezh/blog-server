@@ -26,7 +26,7 @@ public class SysOperLogServiceImpl extends BaseServiceImpl<SysOperLogMapper, Sys
      */
     @Override
     public void insertOperlog(SysOperLog operLog) {
-        operLogMapper.insertOperlog(operLog);
+        operLogMapper.insert(operLog);
     }
 
     /**

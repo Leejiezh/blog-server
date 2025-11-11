@@ -38,6 +38,11 @@ public class Cpu {
      */
     private double free;
 
+    /**
+     * CPU温度
+     */
+    private double cpuTemperature;
+
     public int getCpuNum() {
         return cpuNum;
     }
@@ -84,5 +89,13 @@ public class Cpu {
 
     public void setFree(double free) {
         this.free = free;
+    }
+
+    public double getCpuTemperature() {
+        return Arith.round(cpuTemperature, 2);
+    }
+
+    public void setCpuTemperature(double cpuTemperature) {
+        this.cpuTemperature = cpuTemperature;
     }
 }

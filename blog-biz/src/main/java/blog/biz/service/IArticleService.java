@@ -18,7 +18,7 @@ public interface IArticleService extends BaseService<Article>
      * @param id 文章主键
      * @return 文章
      */
-    public Article selectArticleById(Long id);
+     Article selectArticleById(Long id);
 
     /**
      * 查询文章列表
@@ -26,7 +26,7 @@ public interface IArticleService extends BaseService<Article>
      * @param article 文章
      * @return 文章集合
      */
-    public List<Article> selectArticleList(Article article);
+     List<Article> selectArticleList(Article article);
 
     /**
      * 新增文章
@@ -34,7 +34,7 @@ public interface IArticleService extends BaseService<Article>
      * @param article 文章
      * @return 结果
      */
-    public int insertArticle(Article article);
+     Boolean insertArticle(Article article);
 
     /**
      * 修改文章
@@ -42,7 +42,7 @@ public interface IArticleService extends BaseService<Article>
      * @param article 文章
      * @return 结果
      */
-    public int updateArticle(Article article);
+     int updateArticle(Article article);
 
     /**
      * 批量删除文章
@@ -50,7 +50,7 @@ public interface IArticleService extends BaseService<Article>
      * @param ids 需要删除的文章主键集合
      * @return 结果
      */
-    public int deleteArticleByIds(Long[] ids);
+     int deleteArticleByIds(Long[] ids);
 
     /**
      * 删除文章信息
@@ -58,5 +58,5 @@ public interface IArticleService extends BaseService<Article>
      * @param id 文章主键
      * @return 结果
      */
-    public int deleteArticleById(Long id);
+     int deleteArticleById(Long id);
 }

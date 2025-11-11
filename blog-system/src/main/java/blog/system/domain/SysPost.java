@@ -1,5 +1,6 @@
 package blog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,6 +21,7 @@ public class SysPost extends BaseEntity {
     /**
      * 岗位序号
      */
+    @TableId
     @Excel(name = "岗位序号", cellType = ColumnType.NUMERIC)
     private Long postId;
 
