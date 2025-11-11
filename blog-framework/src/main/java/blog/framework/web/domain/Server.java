@@ -17,6 +17,7 @@ import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
 import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.hardware.Sensors;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
@@ -98,6 +99,10 @@ public class Server {
     public void copyTo() throws Exception {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
+
+        Sensors sensors = hal.getSensors();
+        double cpuTemperature = sensors.getCpuTemperature();
+        cpu.setCpuTemperature(cpuTemperature);
 
         setCpuInfo(hal.getProcessor());
 

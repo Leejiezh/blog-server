@@ -1,5 +1,6 @@
 package blog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,6 +19,7 @@ public class SysNotice extends BaseEntity {
     /**
      * 公告ID
      */
+    @TableId
     private Long noticeId;
 
     /**

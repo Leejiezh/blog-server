@@ -1,62 +1,72 @@
 package ${packageName}.service;
 
+import ${packageName}.domain.vo.${ClassName}Vo;
+import ${packageName}.domain.bo.${ClassName}Bo;
+#if($table.crud)
+import org.dromara.common.mybatis.core.page.TableDataInfo;
+import org.dromara.common.mybatis.core.page.PageQuery;
+#end
+
+import java.util.Collection;
 import java.util.List;
-import blog.common.core.service.BaseService;
-import ${packageName}.domain.${ClassName};
 
 /**
  * ${functionName}Service接口
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends BaseService<${ClassName}>
-{
-    /**
-     * 查询${functionName}
-     * 
-     * @param ${pkColumn.javaField} ${functionName}主键
-     * @return ${functionName}
-     */
-    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+public interface I${ClassName}Service {
 
     /**
-     * 查询${functionName}列表
-     * 
-     * @param ${className} ${functionName}
-     * @return ${functionName}集合
+     * 查询${functionName}
+     *
+     * @param ${pkColumn.javaField} 主键
+     * @return ${functionName}
      */
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    ${ClassName}Vo queryById(${pkColumn.javaType} ${pkColumn.javaField});
+
+#if($table.crud)
+    /**
+     * 分页查询${functionName}列表
+     *
+     * @param bo        查询条件
+     * @param pageQuery 分页参数
+     * @return ${functionName}分页列表
+     */
+    TableDataInfo<${ClassName}Vo> queryPageList(${ClassName}Bo bo, PageQuery pageQuery);
+#end
+
+    /**
+     * 查询符合条件的${functionName}列表
+     *
+     * @param bo 查询条件
+     * @return ${functionName}列表
+     */
+    List<${ClassName}Vo> queryList(${ClassName}Bo bo);
 
     /**
      * 新增${functionName}
-     * 
-     * @param ${className} ${functionName}
-     * @return 结果
+     *
+     * @param bo ${functionName}
+     * @return 是否新增成功
      */
-    public int insert${ClassName}(${ClassName} ${className});
+    Boolean insertByBo(${ClassName}Bo bo);
 
     /**
      * 修改${functionName}
-     * 
-     * @param ${className} ${functionName}
-     * @return 结果
+     *
+     * @param bo ${functionName}
+     * @return 是否修改成功
      */
-    public int update${ClassName}(${ClassName} ${className});
+    Boolean updateByBo(${ClassName}Bo bo);
 
     /**
-     * 批量删除${functionName}
-     * 
-     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
-     * @return 结果
+     * 校验并批量删除${functionName}信息
+     *
+     * @param ids     待删除的主键集合
+     * @param isValid 是否进行有效性校验
+     * @return 是否删除成功
      */
-    public int delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaType}[] ${pkColumn.javaField}s);
-
-    /**
-     * 删除${functionName}信息
-     * 
-     * @param ${pkColumn.javaField} ${functionName}主键
-     * @return 结果
-     */
-    public int delete${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    Boolean deleteWithValidByIds(Collection<${pkColumn.javaType}> ids, Boolean isValid);
 }

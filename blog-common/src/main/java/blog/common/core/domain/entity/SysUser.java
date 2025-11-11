@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import blog.common.utils.SecurityUtils;
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -27,6 +28,7 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
+    @TableId
     @Excel(name = "用户序号", type = Type.EXPORT, cellType = ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
 

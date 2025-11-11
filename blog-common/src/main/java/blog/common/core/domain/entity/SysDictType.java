@@ -1,5 +1,6 @@
 package blog.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -22,6 +23,7 @@ public class SysDictType extends BaseEntity {
     /**
      * 字典主键
      */
+    @TableId
     @Excel(name = "字典主键", cellType = ColumnType.NUMERIC)
     private Long dictId;
 

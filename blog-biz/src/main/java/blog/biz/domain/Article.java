@@ -1,6 +1,7 @@
 package blog.biz.domain;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import blog.common.annotation.Excel;
@@ -16,6 +17,7 @@ import org.apache.ibatis.type.Alias;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Alias("Article")
+@TableName("biz_article")
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
