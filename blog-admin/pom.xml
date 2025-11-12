@@ -54,6 +54,11 @@
             <artifactId>blog-generator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>blog</groupId>
+            <artifactId>blog-biz</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

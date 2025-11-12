@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.constant.CacheConstants;
 import blog.common.core.controller.BaseController;
-import blog.common.core.domain.AjaxResult;
+import blog.common.core.domain.Result;
 import blog.common.core.domain.model.LoginUser;
 import blog.common.core.page.TableDataInfo;
 import blog.common.core.redis.RedisCache;
@@ -66,7 +66,7 @@ public class SysUserOnlineController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
-    public AjaxResult forceLogout(@PathVariable String tokenId) {
+    public Result forceLogout(@PathVariable String tokenId) {
         redisCache.deleteObject(CacheConstants.LOGIN_TOKEN_KEY + tokenId);
         return success();
     }

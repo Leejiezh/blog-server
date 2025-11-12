@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.core.controller.BaseController;
-import blog.common.core.domain.AjaxResult;
+import blog.common.core.domain.Result;
 import blog.common.core.page.TableDataInfo;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
@@ -55,14 +55,14 @@ public class SysLogininforController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
-    public AjaxResult remove(@PathVariable Long[] infoIds) {
+    public Result remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public AjaxResult clean() {
+    public Result clean() {
         logininforService.cleanLogininfor();
         return success();
     }
@@ -70,7 +70,7 @@ public class SysLogininforController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:unlock')")
     @Log(title = "账户解锁", businessType = BusinessType.OTHER)
     @GetMapping("/unlock/{userName}")
-    public AjaxResult unlock(@PathVariable("userName") String userName) {
+    public Result unlock(@PathVariable("userName") String userName) {
         passwordService.clearLoginRecordCache(userName);
         return success();
     }

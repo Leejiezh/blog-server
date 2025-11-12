@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.core.controller.BaseController;
-import blog.common.core.domain.AjaxResult;
+import blog.common.core.domain.Result;
 import blog.common.core.page.TableDataInfo;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
@@ -61,7 +61,7 @@ public class SysJobLogController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:query')")
     @GetMapping(value = "/{jobLogId}")
-    public AjaxResult getInfo(@PathVariable Long jobLogId)
+    public Result getInfo(@PathVariable Long jobLogId)
     {
         return success(jobLogService.selectJobLogById(jobLogId));
     }
@@ -73,7 +73,7 @@ public class SysJobLogController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
     @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
-    public AjaxResult remove(@PathVariable Long[] jobLogIds)
+    public Result remove(@PathVariable Long[] jobLogIds)
     {
         return toAjax(jobLogService.deleteJobLogByIds(jobLogIds));
     }
@@ -84,7 +84,7 @@ public class SysJobLogController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
     @Log(title = "调度日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public AjaxResult clean()
+    public Result clean()
     {
         jobLogService.cleanJobLog();
         return success();
