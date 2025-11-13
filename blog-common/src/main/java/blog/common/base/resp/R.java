@@ -1,4 +1,4 @@
-package blog.common.core.domain;
+package blog.common.base.resp;
 
 import java.io.Serializable;
 

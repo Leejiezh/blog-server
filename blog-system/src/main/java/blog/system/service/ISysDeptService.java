@@ -4,7 +4,7 @@ import java.util.List;
 
 import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysDept;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 
 /**
  * 部门管理 服务层

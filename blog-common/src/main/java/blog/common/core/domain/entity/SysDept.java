@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import org.apache.ibatis.type.Alias;
 
 /**

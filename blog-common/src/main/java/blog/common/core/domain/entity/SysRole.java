@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import org.apache.ibatis.type.Alias;
 
 /**

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.constant.Constants;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.domain.entity.SysMenu;
 import blog.common.core.domain.entity.SysUser;
 import blog.common.core.domain.model.LoginBody;

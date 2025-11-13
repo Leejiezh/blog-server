@@ -14,7 +14,7 @@ import com.google.code.kaptcha.Producer;
 import blog.common.config.BlogServerConfig;
 import blog.common.constant.CacheConstants;
 import blog.common.constant.Constants;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.redis.RedisCache;
 import blog.common.utils.sign.Base64;
 import blog.common.utils.uuid.IdUtils;

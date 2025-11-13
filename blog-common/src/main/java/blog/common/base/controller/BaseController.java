@@ -1,4 +1,4 @@
-package blog.common.core.controller;
+package blog.common.base.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import blog.common.constant.HttpStatus;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.domain.model.LoginUser;
 import blog.common.core.page.PageDomain;
-import blog.common.core.page.TableDataInfo;
+import blog.common.base.resp.TableDataInfo;
 import blog.common.core.page.TableSupport;
 import blog.common.utils.DateUtils;
 import blog.common.utils.PageUtils;

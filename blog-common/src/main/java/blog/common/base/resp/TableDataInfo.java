@@ -1,4 +1,7 @@
-package blog.common.core.page;
+package blog.common.base.resp;
+
+import cn.hutool.http.HttpStatus;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +11,7 @@ import java.util.List;
  *
  * @author leejie
  */
-public class TableDataInfo implements Serializable {
+public class TableDataInfo<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -19,7 +22,7 @@ public class TableDataInfo implements Serializable {
     /**
      * 列表数据
      */
-    private List<?> rows;
+    private List<T> rows;
 
     /**
      * 消息状态码
@@ -43,9 +46,21 @@ public class TableDataInfo implements Serializable {
      * @param list  列表数据
      * @param total 总记录数
      */
-    public TableDataInfo(List<?> list, long total) {
+    public TableDataInfo(List<T> list, long total) {
         this.rows = list;
         this.total = total;
+    }
+
+    /**
+     * 根据分页对象构建表格分页数据对象
+     */
+    public static <T> TableDataInfo<T> build(IPage<T> page) {
+        TableDataInfo<T> rspData = new TableDataInfo<>();
+        rspData.setCode(HttpStatus.HTTP_OK);
+        rspData.setMsg("查询成功");
+        rspData.setRows(page.getRecords());
+        rspData.setTotal(page.getTotal());
+        return rspData;
     }
 
     public long getTotal() {
@@ -56,11 +71,11 @@ public class TableDataInfo implements Serializable {
         this.total = total;
     }
 
-    public List<?> getRows() {
+    public List<T> getRows() {
         return rows;
     }
 
-    public void setRows(List<?> rows) {
+    public void setRows(List<T> rows) {
         this.rows = rows;
     }
 

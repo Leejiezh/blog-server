@@ -17,7 +17,7 @@ import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysMenu;
 import blog.common.core.domain.entity.SysRole;
 import blog.common.core.domain.entity.SysUser;
-import blog.common.core.service.impl.BaseServiceImpl;
+import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.SecurityUtils;
 import blog.common.utils.StringUtils;
 import blog.system.domain.vo.MetaVo;

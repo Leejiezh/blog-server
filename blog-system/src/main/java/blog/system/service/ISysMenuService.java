@@ -5,7 +5,7 @@ import java.util.Set;
 
 import blog.common.core.domain.TreeSelect;
 import blog.common.core.domain.entity.SysMenu;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 import blog.system.domain.vo.RouterVo;
 
 /**

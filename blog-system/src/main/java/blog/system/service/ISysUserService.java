@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysUser;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 
 /**
  * 用户 业务层

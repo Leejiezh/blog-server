@@ -1,7 +1,8 @@
 package blog.biz.service;
 
-import java.util.List;
-import blog.common.core.service.BaseService;
+import blog.common.base.req.PageQuery;
+import blog.common.base.resp.TableDataInfo;
+import blog.common.base.service.BaseService;
 import blog.biz.domain.Article;
 
 /**
@@ -26,7 +27,7 @@ public interface IArticleService extends BaseService<Article>
      * @param article 文章
      * @return 文章集合
      */
-     List<Article> selectArticleList(Article article);
+    TableDataInfo<Article> selectArticleList(Article article, PageQuery pageQuery);
 
     /**
      * 新增文章

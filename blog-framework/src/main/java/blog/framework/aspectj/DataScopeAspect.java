@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import blog.common.annotation.DataScope;
 import blog.common.constant.UserConstants;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import blog.common.core.domain.entity.SysRole;
 import blog.common.core.domain.entity.SysUser;
 import blog.common.core.domain.model.LoginUser;

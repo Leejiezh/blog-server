@@ -3,7 +3,6 @@ package blog.common.core.domain.entity;
 import java.util.Date;
 import java.util.List;
 
-import blog.common.utils.SecurityUtils;
 import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,7 +11,7 @@ import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
 import blog.common.annotation.Excel.Type;
 import blog.common.annotation.Excels;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import blog.common.xss.Xss;
 import org.apache.ibatis.type.Alias;
 

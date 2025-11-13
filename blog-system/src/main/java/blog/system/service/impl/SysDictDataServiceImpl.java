@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import blog.common.core.domain.entity.SysDictData;
-import blog.common.core.service.impl.BaseServiceImpl;
+import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.DictUtils;
 import blog.system.mapper.SysDictDataMapper;
 import blog.system.service.ISysDictDataService;

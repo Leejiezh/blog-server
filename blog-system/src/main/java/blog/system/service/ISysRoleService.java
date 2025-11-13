@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import blog.common.core.domain.entity.SysRole;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 import blog.system.domain.SysUserRole;
 
 /**

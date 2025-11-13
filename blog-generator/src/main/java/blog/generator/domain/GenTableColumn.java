@@ -1,7 +1,7 @@
 package blog.generator.domain;
 
 import jakarta.validation.constraints.NotBlank;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import blog.common.utils.StringUtils;
 
 /**

@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import com.alibaba.fastjson2.JSON;
 import blog.common.constant.Constants;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.domain.model.LoginUser;
 import blog.common.utils.MessageUtils;
 import blog.common.utils.ServletUtils;

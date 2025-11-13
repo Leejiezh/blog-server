@@ -3,7 +3,7 @@ package blog.system.service.impl;
 import java.util.Collection;
 import java.util.List;
 
-import blog.common.core.service.impl.BaseServiceImpl;
+import blog.common.base.service.impl.BaseServiceImpl;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
