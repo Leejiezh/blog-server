@@ -9,7 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import com.alibaba.fastjson2.JSON;
 import blog.common.annotation.RepeatSubmit;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.utils.ServletUtils;
 
 /**

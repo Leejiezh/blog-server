@@ -1,58 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog.biz.mapper.ArticleMapper">
-    
     <resultMap type="Article" id="ArticleResult">
-        <result property="id"    column="id"    />
-        <result property="userId"    column="user_id"    />
-        <result property="categoryId"    column="category_id"    />
-        <result property="articleCover"    column="article_cover"    />
-        <result property="articleTitle"    column="article_title"    />
-        <result property="articleAbstract"    column="article_abstract"    />
-        <result property="articleContent"    column="article_content"    />
-        <result property="isTop"    column="is_top"    />
-        <result property="isFeatured"    column="is_featured"    />
-        <result property="isDelete"    column="is_delete"    />
-        <result property="status"    column="status"    />
-        <result property="type"    column="type"    />
-        <result property="password"    column="password"    />
-        <result property="originalUrl"    column="original_url"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createById"    column="create_by_id"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateById"    column="update_by_id"    />
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="articleCover" column="article_cover"/>
+        <result property="articleTitle" column="article_title"/>
+        <result property="articleAbstract" column="article_abstract"/>
+        <result property="articleContent" column="article_content"/>
+        <result property="isTop" column="is_top"/>
+        <result property="isFeatured" column="is_featured"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="status" column="status"/>
+        <result property="type" column="type"/>
+        <result property="password" column="password"/>
+        <result property="originalUrl" column="original_url"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createById" column="create_by_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateById" column="update_by_id"/>
+        <result property="userName" column="userName"/>
     </resultMap>
 
     <sql id="selectArticleVo">
-        select id, user_id, category_id, article_cover, article_title, article_abstract, article_content, is_top,
-               is_featured, is_delete, status, type, password, original_url, create_time, update_time,
-               create_by, create_by_id, update_by, update_by_id
+        select id,
+               user_id,
+               category_id,
+               article_cover,
+               article_title,
+               article_abstract,
+               article_content,
+               is_top,
+               is_featured,
+               is_delete,
+               status,
+               type,
+               password,
+               original_url,
+               create_time,
+               update_time,
+               create_by,
+               create_by_id,
+               update_by,
+               update_by_id
         from biz_article
     </sql>
 
     <select id="selectArticleList" parameterType="Article" resultMap="ArticleResult">
-        <include refid="selectArticleVo"/>
-        <where>  
-            <if test="userId != null "> and user_id = #{userId}</if>
-            <if test="categoryId != null "> and category_id = #{categoryId}</if>
-            <if test="articleCover != null  and articleCover != ''"> and article_cover = #{articleCover}</if>
-            <if test="articleTitle != null  and articleTitle != ''"> and article_title = #{articleTitle}</if>
-            <if test="articleAbstract != null  and articleAbstract != ''"> and article_abstract = #{articleAbstract}</if>
-            <if test="articleContent != null  and articleContent != ''"> and article_content = #{articleContent}</if>
-            <if test="isTop != null "> and is_top = #{isTop}</if>
-            <if test="isFeatured != null "> and is_featured = #{isFeatured}</if>
-            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
-            <if test="status != null "> and status = #{status}</if>
-            <if test="type != null "> and type = #{type}</if>
-            <if test="password != null  and password != ''"> and password = #{password}</if>
-            <if test="originalUrl != null  and originalUrl != ''"> and original_url = #{originalUrl}</if>
+        select
+            ba.id,
+            ba.user_id,
+            ba.category_id,
+            ba.article_cover,
+            ba.article_title,
+            ba.article_abstract,
+            ba.article_content,
+            ba.is_top,
+            ba.is_featured,
+            ba.is_delete,
+            ba.status,
+            ba.type,
+            ba.password,
+            ba.original_url,
+            ba.create_time,
+            ba.update_time,
+            ba.create_by,
+            ba.create_by_id,
+            ba.update_by,
+            ba.update_by_id,
+            su.user_name as userName
+        from biz_article ba
+        left join sys_user su on su.user_id = ba.user_id
+        <where>
+            <if test="dto.userId != null ">
+                and ba.user_id = #{userId}
+            </if>
+            <if test="dto.categoryId != null ">
+                and ba.category_id = #{categoryId}
+            </if>
+            <if test="dto.articleCover != null  and dto.articleCover != ''">
+                and ba.article_cover = #{dto.articleCover}
+            </if>
+            <if test="dto.articleTitle != null  and dto.articleTitle != ''">
+                and ba.article_title = #{dto.articleTitle}
+            </if>
+            <if test="dto.articleAbstract != null  and dto.articleAbstract != ''">
+                and ba.article_abstract = #{dto.articleAbstract}
+            </if>
+            <if test="dto.articleContent != null  and dto.articleContent != ''">
+                and ba.article_content = #{dto.articleContent}
+            </if>
+            <if test="dto.isTop != null ">
+                and ba.is_top = #{dto.isTop}
+            </if>
+            <if test="dto.isFeatured != null ">
+                and ba.is_featured = #{dto.isFeatured}
+            </if>
+            <if test="dto.isDelete != null ">
+                and ba.is_delete = #{dto.isDelete}
+            </if>
+            <if test="dto.status != null ">
+                and ba.status = #{dto.status}
+            </if>
+            <if test="dto.type != null ">
+                and type = #{dto.type}
+            </if>
+            <if test="dto.password != null  and dto.password != ''">
+                and ba.password = #{dto.password}
+            </if>
+            <if test="dto.originalUrl != null  and dto.originalUrl != ''">
+                and ba.original_url = #{dto.originalUrl}
+            </if>
         </where>
     </select>
-    
+
     <select id="selectArticleById" parameterType="Long" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
         where id = #{id}
@@ -61,69 +127,161 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
         insert into biz_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">user_id,</if>
-            <if test="categoryId != null">category_id,</if>
-            <if test="articleCover != null">article_cover,</if>
-            <if test="articleTitle != null and articleTitle != ''">article_title,</if>
-            <if test="articleAbstract != null">article_abstract,</if>
-            <if test="articleContent != null and articleContent != ''">article_content,</if>
-            <if test="isTop != null">is_top,</if>
-            <if test="isFeatured != null">is_featured,</if>
-            <if test="isDelete != null">is_delete,</if>
-            <if test="status != null">status,</if>
-            <if test="type != null">type,</if>
-            <if test="password != null">password,</if>
-            <if test="originalUrl != null">original_url,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateTime != null">update_time,</if>
-         </trim>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="articleCover != null">
+                article_cover,
+            </if>
+            <if test="articleTitle != null and articleTitle != ''">
+                article_title,
+            </if>
+            <if test="articleAbstract != null">
+                article_abstract,
+            </if>
+            <if test="articleContent != null and articleContent != ''">
+                article_content,
+            </if>
+            <if test="isTop != null">
+                is_top,
+            </if>
+            <if test="isFeatured != null">
+                is_featured,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="originalUrl != null">
+                original_url,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">#{userId},</if>
-            <if test="categoryId != null">#{categoryId},</if>
-            <if test="articleCover != null">#{articleCover},</if>
-            <if test="articleTitle != null and articleTitle != ''">#{articleTitle},</if>
-            <if test="articleAbstract != null">#{articleAbstract},</if>
-            <if test="articleContent != null and articleContent != ''">#{articleContent},</if>
-            <if test="isTop != null">#{isTop},</if>
-            <if test="isFeatured != null">#{isFeatured},</if>
-            <if test="isDelete != null">#{isDelete},</if>
-            <if test="status != null">#{status},</if>
-            <if test="type != null">#{type},</if>
-            <if test="password != null">#{password},</if>
-            <if test="originalUrl != null">#{originalUrl},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-         </trim>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId},
+            </if>
+            <if test="articleCover != null">
+                #{articleCover},
+            </if>
+            <if test="articleTitle != null and articleTitle != ''">
+                #{articleTitle},
+            </if>
+            <if test="articleAbstract != null">
+                #{articleAbstract},
+            </if>
+            <if test="articleContent != null and articleContent != ''">
+                #{articleContent},
+            </if>
+            <if test="isTop != null">
+                #{isTop},
+            </if>
+            <if test="isFeatured != null">
+                #{isFeatured},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="originalUrl != null">
+                #{originalUrl},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
     </insert>
 
     <update id="updateArticle" parameterType="Article">
         update biz_article
         <trim prefix="SET" suffixOverrides=",">
-            <if test="userId != null">user_id = #{userId},</if>
-            <if test="categoryId != null">category_id = #{categoryId},</if>
-            <if test="articleCover != null">article_cover = #{articleCover},</if>
-            <if test="articleTitle != null and articleTitle != ''">article_title = #{articleTitle},</if>
-            <if test="articleAbstract != null">article_abstract = #{articleAbstract},</if>
-            <if test="articleContent != null and articleContent != ''">article_content = #{articleContent},</if>
-            <if test="isTop != null">is_top = #{isTop},</if>
-            <if test="isFeatured != null">is_featured = #{isFeatured},</if>
-            <if test="isDelete != null">is_delete = #{isDelete},</if>
-            <if test="status != null">status = #{status},</if>
-            <if test="type != null">type = #{type},</if>
-            <if test="password != null">password = #{password},</if>
-            <if test="originalUrl != null">original_url = #{originalUrl},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="articleCover != null">
+                article_cover = #{articleCover},
+            </if>
+            <if test="articleTitle != null and articleTitle != ''">
+                article_title = #{articleTitle},
+            </if>
+            <if test="articleAbstract != null">
+                article_abstract = #{articleAbstract},
+            </if>
+            <if test="articleContent != null and articleContent != ''">
+                article_content = #{articleContent},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop},
+            </if>
+            <if test="isFeatured != null">
+                is_featured = #{isFeatured},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="originalUrl != null">
+                original_url = #{originalUrl},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
         </trim>
         where id = #{id}
     </update>
 
     <delete id="deleteArticleById" parameterType="Long">
-        delete from biz_article where id = #{id}
+        delete
+        from biz_article
+        where id = #{id}
     </delete>
 
     <delete id="deleteArticleByIds" parameterType="String">
-        delete from biz_article where id in 
+        delete from biz_article where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

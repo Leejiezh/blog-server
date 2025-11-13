@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import blog.common.config.BlogServerConfig;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.utils.StringUtils;
 import blog.common.utils.file.FileUploadUtils;
 import blog.common.utils.file.FileUtils;

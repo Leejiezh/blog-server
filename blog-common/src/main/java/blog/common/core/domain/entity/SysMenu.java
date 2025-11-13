@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import org.apache.ibatis.type.Alias;
 
 /**

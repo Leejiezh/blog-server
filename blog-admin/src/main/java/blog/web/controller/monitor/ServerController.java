@@ -4,7 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.framework.web.domain.Server;
 
 /**

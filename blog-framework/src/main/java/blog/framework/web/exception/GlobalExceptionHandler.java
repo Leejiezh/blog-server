@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import blog.common.constant.HttpStatus;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.text.Convert;
 import blog.common.exception.DemoModeException;
 import blog.common.exception.ServiceException;

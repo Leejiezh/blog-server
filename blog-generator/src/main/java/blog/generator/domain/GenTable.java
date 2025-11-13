@@ -6,7 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ArrayUtils;
 import blog.common.constant.GenConstants;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import blog.common.utils.StringUtils;
 
 /**

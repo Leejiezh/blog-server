@@ -2,6 +2,10 @@ package blog.web.controller.business;
 
 import java.util.List;
 
+import blog.common.base.resp.R;
+import blog.common.base.req.PageQuery;
+import blog.common.base.resp.TableDataInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
-import blog.common.core.controller.BaseController;
-import blog.common.core.domain.Result;
+import blog.common.base.controller.BaseController;
+import blog.common.base.resp.Result;
 import blog.common.enums.BusinessType;
 import blog.biz.domain.Article;
 import blog.biz.service.IArticleService;
 import blog.common.utils.poi.ExcelUtil;
-import blog.common.core.page.TableDataInfo;
 
 /**
  * 文章Controller
@@ -39,10 +42,8 @@ public class ArticleController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:article:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Article article) {
-        startPage();
-        List<Article> list = articleService.selectArticleList(article);
-        return getDataTable(list);
+    public TableDataInfo<Article> list(Article article, PageQuery pageQuery) {
+        return articleService.selectArticleList(article, pageQuery);
     }
 
     /**
@@ -52,9 +53,9 @@ public class ArticleController extends BaseController {
     @Log(title = "文章", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Article article) {
-        List<Article> list = articleService.selectArticleList(article);
+        TableDataInfo<Article> list = articleService.selectArticleList(article, null);
         ExcelUtil<Article> util = new ExcelUtil<Article>(Article.class);
-        util.exportExcel(response, list, "文章数据");
+        util.exportExcel(response, list.getRows(), "文章数据");
     }
 
     /**

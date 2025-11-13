@@ -3,7 +3,7 @@ package blog.system.service;
 import java.util.List;
 
 import blog.common.core.domain.entity.SysDictData;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 
 /**
  * 字典 业务层

@@ -1,4 +1,4 @@
-package blog.common.core.service;
+package blog.common.base.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 

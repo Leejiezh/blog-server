@@ -76,7 +76,7 @@ import blog.common.annotation.Excel.ColumnType;
 import blog.common.annotation.Excel.Type;
 import blog.common.annotation.Excels;
 import blog.common.config.BlogServerConfig;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.core.text.Convert;
 import blog.common.exception.UtilException;
 import blog.common.utils.DateUtils;

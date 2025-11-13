@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
 import blog.common.constant.ScheduleConstants;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import blog.common.utils.StringUtils;
 import blog.quartz.util.CronUtils;
 

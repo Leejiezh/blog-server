@@ -2,6 +2,9 @@ package blog.biz.mapper;
 
 import blog.biz.domain.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param id 文章主键
      * @return 文章
      */
-    public Article selectArticleById(Long id);
+    Article selectArticleById(Long id);
 
     /**
      * 查询文章列表
@@ -26,7 +29,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param article 文章
      * @return 文章集合
      */
-    public List<Article> selectArticleList(Article article);
+    IPage<Article> selectArticleList(Page<Article> page, @Param("dto") Article article);
 
     /**
      * 新增文章
@@ -34,7 +37,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param article 文章
      * @return 结果
      */
-    public int insertArticle(Article article);
+    int insertArticle(Article article);
 
     /**
      * 修改文章
@@ -42,7 +45,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param article 文章
      * @return 结果
      */
-    public int updateArticle(Article article);
+    int updateArticle(Article article);
 
     /**
      * 删除文章
@@ -50,7 +53,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param id 文章主键
      * @return 结果
      */
-    public int deleteArticleById(Long id);
+    int deleteArticleById(Long id);
 
     /**
      * 批量删除文章
@@ -58,5 +61,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteArticleByIds(Long[] ids);
+    int deleteArticleByIds(Long[] ids);
 }

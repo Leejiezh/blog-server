@@ -1,11 +1,14 @@
 package blog.biz.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import blog.common.annotation.Excel;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import org.apache.ibatis.type.Alias;
 
 /**
@@ -75,5 +78,11 @@ public class Article extends BaseEntity {
     /** 原文链接 */
     @Excel(name = "原文链接")
     private String originalUrl;
+
+    /**
+     * 作者
+     */
+    @TableField(exist = false)
+    private String userName;
 
 }

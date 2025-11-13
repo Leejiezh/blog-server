@@ -1,9 +1,10 @@
 package blog.biz.service.impl;
 
-import java.util.List;
-
+import blog.common.base.req.PageQuery;
+import blog.common.base.resp.TableDataInfo;
 import blog.common.utils.DateUtils;
-import blog.common.core.service.impl.BaseServiceImpl;
+import blog.common.base.service.impl.BaseServiceImpl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import blog.biz.mapper.ArticleMapper;
@@ -39,8 +40,9 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> 
      * @return 文章
      */
     @Override
-    public List<Article> selectArticleList(Article article) {
-        return articleMapper.selectArticleList(article);
+    public TableDataInfo<Article> selectArticleList(Article article, PageQuery pageQuery) {
+        IPage<Article> articlePage = articleMapper.selectArticleList(pageQuery.build(), article);
+        return TableDataInfo.build(articlePage);
     }
 
     /**

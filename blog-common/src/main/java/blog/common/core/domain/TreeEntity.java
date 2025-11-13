@@ -1,5 +1,7 @@
 package blog.common.core.domain;
 
+import blog.common.base.entity.BaseEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 

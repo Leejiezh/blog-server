@@ -10,7 +10,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson2.JSON;
 import blog.common.constant.HttpStatus;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.utils.ServletUtils;
 import blog.common.utils.StringUtils;
 

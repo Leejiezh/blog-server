@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import blog.common.constant.UserConstants;
 import blog.common.core.domain.entity.SysDictData;
 import blog.common.core.domain.entity.SysDictType;
-import blog.common.core.service.impl.BaseServiceImpl;
+import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.exception.ServiceException;
 import blog.common.utils.DictUtils;
 import blog.common.utils.StringUtils;

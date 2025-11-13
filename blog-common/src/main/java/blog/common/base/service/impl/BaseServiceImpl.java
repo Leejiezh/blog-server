@@ -1,7 +1,7 @@
-package blog.common.core.service.impl;
+package blog.common.base.service.impl;
 
 import blog.common.core.domain.entity.SysUser;
-import blog.common.core.service.BaseService;
+import blog.common.base.service.BaseService;
 import blog.common.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

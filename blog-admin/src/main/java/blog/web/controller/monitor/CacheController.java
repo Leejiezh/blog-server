@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.constant.CacheConstants;
-import blog.common.core.domain.Result;
+import blog.common.base.resp.Result;
 import blog.common.utils.StringUtils;
 import blog.system.domain.SysCache;
 

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
-import blog.common.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 
 /**
  * 系统访问记录表 sys_logininfor
