@@ -29,7 +29,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param article 文章
      * @return 文章集合
      */
-    IPage<Article> selectArticleList(Page<Article> page, @Param("dto") Article article);
+    Page<Article> selectArticleList(@Param("page") IPage<Article> page, @Param("dto") Article article);
 
     /**
      * 新增文章

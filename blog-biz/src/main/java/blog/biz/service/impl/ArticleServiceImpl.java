@@ -5,6 +5,7 @@ import blog.common.base.resp.TableDataInfo;
 import blog.common.utils.DateUtils;
 import blog.common.base.service.impl.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import blog.biz.mapper.ArticleMapper;
@@ -41,7 +42,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> 
      */
     @Override
     public TableDataInfo<Article> selectArticleList(Article article, PageQuery pageQuery) {
-        IPage<Article> articlePage = articleMapper.selectArticleList(pageQuery.build(), article);
+        Page<Article> articlePage = articleMapper.selectArticleList(pageQuery.build(), article);
         return TableDataInfo.build(articlePage);
     }
 
