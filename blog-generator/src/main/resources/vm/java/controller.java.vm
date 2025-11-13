@@ -8,20 +8,20 @@ import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
-import org.dromara.common.idempotent.annotation.RepeatSubmit;
-import org.dromara.common.log.annotation.Log;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.excel.utils.ExcelUtil;
+import blog.common.annotation.RepeatSubmit;
+import blog.common.annotation.Log;
+import blog.common.base.controller.BaseController;
+import blog.common.base.req.PageQuery;
+import blog.common.base.resp.R;
+import blog.common.validate.AddGroup;
+import blog.common.validate.EditGroup;
+import blog.common.enums.BusinessType;
+import blog.common.utils.poi.ExcelUtil;
 import ${packageName}.domain.vo.${ClassName}Vo;
 import ${packageName}.domain.bo.${ClassName}Bo;
 import ${packageName}.service.I${ClassName}Service;
 #if($table.crud)
-import org.dromara.common.mybatis.core.page.TableDataInfo;
+import blog.common.base.resp.TableDataInfo;
 #elseif($table.tree)
 #end
 

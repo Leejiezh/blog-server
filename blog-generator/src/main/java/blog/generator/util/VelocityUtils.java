@@ -132,6 +132,7 @@ public class VelocityUtils {
             useWebType = "vm/vue/v3";
         }
         List<String> templates = new ArrayList<String>();
+        templates.add("vm/java/dto.java.vm");
         templates.add("vm/java/domain.java.vm");
         templates.add("vm/java/mapper.java.vm");
         templates.add("vm/java/service.java.vm");
@@ -173,6 +174,10 @@ public class VelocityUtils {
         if (template.contains("domain.java.vm")) {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
         }
+        if (template.contains("dto.java.vm")) {
+            fileName = StringUtils.format("{}/domain/dto/{}DTO.java", javaPath, className);
+        }
+
         if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory())) {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, genTable.getSubTable().getClassName());
         } else if (template.contains("mapper.java.vm")) {

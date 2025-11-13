@@ -2,6 +2,7 @@ package blog.generator.mapper;
 
 import java.util.List;
 
+import blog.common.base.mapper.BaseMapperPlus;
 import blog.generator.domain.GenTableColumn;
 
 /**
@@ -9,7 +10,7 @@ import blog.generator.domain.GenTableColumn;
  *
  * @author leejie
  */
-public interface GenTableColumnMapper {
+public interface GenTableColumnMapper extends BaseMapperPlus<GenTableColumn, GenTableColumn> {
     /**
      * 根据表名称查询列信息
      *
