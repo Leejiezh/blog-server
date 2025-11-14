@@ -6,6 +6,7 @@ import ${packageName}.domain.dto.${ClassName}DTO;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
 #end
+import blog.common.base.service.BaseService;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service {
+public interface I${ClassName}Service extends BaseService<${ClassName}>{
 
     /**
      * 查询${functionName}
