@@ -31,15 +31,12 @@ import java.io.Serial;
 @TableName("${tableName}")
 public class ${ClassName} extends ${Entity} {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
     /**
      * $column.columnComment
      */
-#if($column.javaField=='delFlag')
+#if($column.javaField=='isDelete')
     @TableLogic
 #end
 #if($column.javaField=='version')
@@ -47,6 +44,9 @@ public class ${ClassName} extends ${Entity} {
 #end
 #if($column.isPk==1)
     @TableId(value = "$column.columnName")
+#end
+#if($column.javaField=='id')
+    @TableId(value = "id")
 #end
     private $column.javaType $column.javaField;
 

@@ -1,8 +1,6 @@
 package ${packageName}.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.StringUtils;
 #if($table.crud)
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
@@ -71,7 +69,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
      */
     @Override
     public List<${ClassName}VO> queryList(${ClassName}DTO dto) {
-        LambdaQueryWrapper<${ClassName}> lqw = buildQueryWrapper(bo);
+        LambdaQueryWrapper<${ClassName}> lqw = buildQueryWrapper(dto);
         return baseMapper.selectVoList(lqw);
     }
 
@@ -88,11 +86,11 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 #set($mpMethod=$column.queryType.toLowerCase())
 #if($queryType != 'BETWEEN')
 #if($javaType == 'String')
-#set($condition='StringUtils.isNotBlank(bo.get'+$AttrName+'())')
+#set($condition='StringUtils.isNotBlank(dto.get'+$AttrName+'())')
 #else
-#set($condition='bo.get'+$AttrName+'() != null')
+#set($condition='dto.get'+$AttrName+'() != null')
 #end
-        lqw.$mpMethod($condition, ${ClassName}::get$AttrName, bo.get$AttrName());
+        lqw.$mpMethod($condition, ${ClassName}::get$AttrName, dto.get$AttrName());
 #else
         lqw.between(params.get("begin$AttrName") != null && params.get("end$AttrName") != null,
             ${ClassName}::get$AttrName ,params.get("begin$AttrName"), params.get("end$AttrName"));
@@ -131,8 +129,8 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
      * @return 是否修改成功
      */
     @Override
-    public Boolean updateByBo(${ClassName}DTO dto) {
-        ${ClassName} update = MapstructUtils.convert(dto, ${ClassName}.class);
+    public Boolean updateByDTO(${ClassName}DTO dto) {
+        ${ClassName} update = BeanUtil.copyProperties(dto, ${ClassName}.class);
         validEntityBeforeSave(update);
         return baseMapper.updateById(update) > 0;
     }
