@@ -4,8 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.*;
-import cn.dev33.satoken.annotation.SaCheckPermission;
+import jakxarta.validation.constraints.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import blog.common.annotation.RepeatSubmit;
@@ -42,15 +41,15 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 查询${functionName}列表
      */
-    @SaCheckPermission("${permissionPrefix}:list")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
 #if($table.crud)
-    public TableDataInfo<${ClassName}Vo> list(${ClassName}Bo bo, PageQuery pageQuery) {
-        return ${className}Service.queryPageList(bo, pageQuery);
+    public TableDataInfo<${ClassName}VO> list(${ClassName}DTO dto, PageQuery pageQuery) {
+        return ${className}Service.queryPageList(dto, pageQuery);
     }
 #elseif($table.tree)
-    public R<List<${ClassName}Vo>> list(${ClassName}Bo bo) {
-        List<${ClassName}Vo> list = ${className}Service.queryList(bo);
+    public R<List<${ClassName}VO>> list(${ClassName}DTO dto) {
+        List<${ClassName}VO> list = ${className}Service.queryList(dto);
         return R.ok(list);
     }
 #end
@@ -58,12 +57,13 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 导出${functionName}列表
      */
-    @SaCheckPermission("${permissionPrefix}:export")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')")
     @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(${ClassName}Bo bo, HttpServletResponse response) {
-        List<${ClassName}Vo> list = ${className}Service.queryList(bo);
-        ExcelUtil.exportExcel(list, "${functionName}", ${ClassName}Vo.class, response);
+    public void export(${ClassName}DTO dto, HttpServletResponse response) {
+        List<${ClassName}VO> list = ${className}Service.queryList(dto);
+        ExcelUtil<${ClassName}VO> util = new ExcelUtil<>(${ClassName}VO.class);
+        util.exportExcel(response, list, "${functionName}");
     }
 
     /**
@@ -71,7 +71,7 @@ public class ${ClassName}Controller extends BaseController {
      *
      * @param ${pkColumn.javaField} 主键
      */
-    @SaCheckPermission("${permissionPrefix}:query")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
     @GetMapping("/{${pkColumn.javaField}}")
     public R<${ClassName}Vo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
@@ -81,23 +81,23 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 新增${functionName}
      */
-    @SaCheckPermission("${permissionPrefix}:add")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:add')")
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @RepeatSubmit()
     @PostMapping()
-    public R<Void> add(@Validated(AddGroup.class) @RequestBody ${ClassName}Bo bo) {
-        return toAjax(${className}Service.insertByBo(bo));
+    public R<Void> add(@Validated(AddGroup.class) @RequestBody ${ClassName}DTO dto) {
+        return R.ok(${className}Service.insertByBo(dto));
     }
 
     /**
      * 修改${functionName}
      */
-    @SaCheckPermission("${permissionPrefix}:edit")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:edit')")
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @RepeatSubmit()
     @PutMapping()
-    public R<Void> edit(@Validated(EditGroup.class) @RequestBody ${ClassName}Bo bo) {
-        return toAjax(${className}Service.updateByBo(bo));
+    public R<Void> edit(@Validated(EditGroup.class) @RequestBody ${ClassName}DTO dto) {
+        return R.ok(${className}Service.updateByDTO(DTO));
     }
 
     /**
@@ -105,11 +105,11 @@ public class ${ClassName}Controller extends BaseController {
      *
      * @param ${pkColumn.javaField}s 主键串
      */
-    @SaCheckPermission("${permissionPrefix}:remove")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:remove')")
     @Log(title = "${functionName}", businessType = BusinessType.DELETE)
     @DeleteMapping("/{${pkColumn.javaField}s}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s) {
-        return toAjax(${className}Service.deleteWithValidByIds(List.of(${pkColumn.javaField}s), true));
+        return R.ok(${className}Service.deleteWithValidByIds(List.of(${pkColumn.javaField}s), true));
     }
 }

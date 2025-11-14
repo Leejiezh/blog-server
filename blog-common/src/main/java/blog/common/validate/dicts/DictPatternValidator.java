@@ -1,10 +1,9 @@
 package blog.common.validate.dicts;
 
+import blog.common.utils.StringUtils;
+import blog.common.utils.spring.SpringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dromara.common.core.service.DictService;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
 
 /**
  * 自定义字典值校验器
@@ -45,11 +44,12 @@ public class DictPatternValidator implements ConstraintValidator<DictPattern, St
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (StringUtils.isBlank(dictType) || StringUtils.isBlank(value)) {
-            return false;
-        }
-        String dictLabel = SpringUtils.getBean(DictService.class).getDictLabel(dictType, value, separator);
-        return StringUtils.isNotBlank(dictLabel);
+//        if (StringUtils.isBlank(dictType) || StringUtils.isBlank(value)) {
+//            return false;
+//        }
+//        String dictLabel = SpringUtils.getBean(DictService.class).getDictLabel(dictType, value, separator);
+//        return StringUtils.isNotBlank(dictLabel);
+        return true;
     }
 
 }

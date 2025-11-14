@@ -1,6 +1,11 @@
 package blog.framework.config;
 
 import blog.common.utils.spring.SpringUtils;
+import blog.framework.handler.EntityMetaObjectHandler;
+import cn.hutool.core.net.NetUtil;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
@@ -28,4 +33,23 @@ public class MybatisPlusConfig {
         paginationInnerInterceptor.setOverflow(true);
         return paginationInnerInterceptor;
     }
+
+    /**
+     * 使用网卡信息绑定雪花生成器
+     * 防止集群雪花ID重复
+     */
+    @Bean
+    public IdentifierGenerator idGenerator() {
+        return new DefaultIdentifierGenerator(NetUtil.getLocalhost());
+    }
+
+    /**
+     * 元对象字段填充控制器
+     */
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new EntityMetaObjectHandler();
+    }
+
+
 }
