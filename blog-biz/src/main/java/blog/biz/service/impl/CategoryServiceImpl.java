@@ -1,5 +1,9 @@
 package blog.biz.service.impl;
 
+import blog.biz.domain.Article;
+import blog.biz.mapper.ArticleMapper;
+import blog.biz.service.IArticleService;
+import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.StringUtils;
 import cn.hutool.core.bean.BeanUtil;
 import blog.common.base.resp.TableDataInfo;
@@ -29,7 +33,7 @@ import java.util.Collection;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CategoryServiceImpl implements ICategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Category> implements ICategoryService {
 
     private final CategoryMapper baseMapper;
 

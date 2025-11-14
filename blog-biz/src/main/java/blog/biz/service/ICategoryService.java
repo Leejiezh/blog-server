@@ -1,9 +1,11 @@
 package blog.biz.service;
 
+import blog.biz.domain.Category;
 import blog.biz.domain.vo.CategoryVO;
 import blog.biz.domain.dto.CategoryDTO;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
+import blog.common.base.service.BaseService;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author leejie
  * @date 2025-11-14
  */
-public interface ICategoryService {
+public interface ICategoryService extends BaseService<Category> {
 
     /**
      * 查询文章分类

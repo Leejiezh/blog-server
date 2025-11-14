@@ -29,5 +29,9 @@ public class Category extends BaseEntity {
      */
     private String categoryName;
 
-
+    /**
+     * 删除标志
+     */
+    @TableLogic
+    private int isDelete;
 }

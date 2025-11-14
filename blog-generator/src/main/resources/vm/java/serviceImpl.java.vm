@@ -30,7 +30,7 @@ import java.util.Collection;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service {
+public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service {
 
     private final ${ClassName}Mapper baseMapper;
 
