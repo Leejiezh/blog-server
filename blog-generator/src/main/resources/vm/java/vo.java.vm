@@ -26,7 +26,7 @@ import java.util.Date;
 @Data
 @ExcelIgnoreUnannotated
 @AutoMapper(target = ${ClassName}.class)
-public class ${ClassName}Vo implements Serializable {
+public class ${ClassName}VO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
