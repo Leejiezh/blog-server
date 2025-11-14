@@ -77,6 +77,7 @@
         from biz_article ba
         left join sys_user su on su.user_id = ba.user_id
         <where>
+            ba.is_delete = 0
             <if test="dto.userId != null ">
                 and ba.user_id = #{userId}
             </if>
@@ -121,7 +122,7 @@
 
     <select id="selectArticleById" parameterType="Long" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
-        where id = #{id}
+        where id = #{id} and is_delete = 0
     </select>
 
     <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
