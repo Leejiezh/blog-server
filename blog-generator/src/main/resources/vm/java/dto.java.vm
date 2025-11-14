@@ -1,7 +1,7 @@
 package ${packageName}.domain.bo;
 
 import ${packageName}.domain.${ClassName};
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import blog.common.base.entity.BaseEntity;
 import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
 import io.github.linpeilie.annotations.AutoMapper;
@@ -21,7 +21,7 @@ import ${import};
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AutoMapper(target = ${ClassName}.class, reverseConvertGenerate = false)
-public class ${ClassName}Bo extends BaseEntity {
+public class ${ClassName}DTO extends BaseEntity {
 
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField) && ($column.query || $column.insert || $column.edit))

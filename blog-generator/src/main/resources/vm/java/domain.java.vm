@@ -5,11 +5,7 @@ package ${packageName}.domain;
 #set($IsTenant=1)
 #end
 #end
-#if($IsTenant==1)
-import org.dromara.common.tenant.core.TenantEntity;
-#else
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-#end
+import blog.common.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
