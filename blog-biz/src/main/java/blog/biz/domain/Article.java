@@ -85,4 +85,10 @@ public class Article extends BaseEntity {
     @TableField(exist = false)
     private String userName;
 
+    /**
+     * 分类名称
+     */
+    @TableField(exist = false)
+    private String categoryName;
+
 }

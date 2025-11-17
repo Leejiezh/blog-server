@@ -25,6 +25,7 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateById" column="update_by_id"/>
         <result property="userName" column="userName"/>
+        <result property="categoryName" column="categoryName"/>
     </resultMap>
 
     <sql id="selectArticleVo">
@@ -73,15 +74,17 @@
             ba.create_by_id,
             ba.update_by,
             ba.update_by_id,
-            su.user_name as userName
+            su.user_name as userName,
+            bc.category_name as categoryName
         from biz_article ba
         left join sys_user su on su.user_id = ba.user_id
+        left join biz_category bc on bc.id = ba.category_id and bc.is_delete = 0
         <where>
             <if test="dto.userId != null ">
-                and ba.user_id = #{userId}
+                and ba.user_id = #{dto.userId}
             </if>
             <if test="dto.categoryId != null ">
-                and ba.category_id = #{categoryId}
+                and ba.category_id = #{dto.categoryId}
             </if>
             <if test="dto.articleCover != null  and dto.articleCover != ''">
                 and ba.article_cover = #{dto.articleCover}
