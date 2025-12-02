@@ -24,7 +24,7 @@ import org.apache.ibatis.type.Alias;
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /** 作者 */

@@ -1,5 +1,6 @@
 package blog.web.controller.business;
 
+import java.util.Arrays;
 import java.util.List;
 
 import blog.common.base.resp.R;
@@ -94,6 +95,6 @@ public class ArticleController extends BaseController {
     @Log(title = "文章", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public Result remove(@PathVariable Long[] ids) {
-        return toAjax(articleService.deleteArticleByIds(ids));
+        return toAjax(articleService.removeByIds(Arrays.asList(ids)));
     }
 }

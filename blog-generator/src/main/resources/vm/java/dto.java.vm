@@ -2,9 +2,8 @@ package ${packageName}.domain.bo;
 
 import ${packageName}.domain.${ClassName};
 import blog.common.base.entity.BaseEntity;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import io.github.linpeilie.annotations.AutoMapper;
+import blog.common.validate.AddGroup;
+import blog.common.validate.EditGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import jakarta.validation.constraints.*;
@@ -20,7 +19,6 @@ import ${import};
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AutoMapper(target = ${ClassName}.class, reverseConvertGenerate = false)
 public class ${ClassName}DTO extends BaseEntity {
 
 #foreach ($column in $columns)
