@@ -45,6 +45,7 @@ import blog.generator.service.IGenTableService;
 @RestController
 @RequestMapping("/tool/gen")
 public class GenController extends BaseController {
+
     @Autowired
     private IGenTableService genTableService;
 
