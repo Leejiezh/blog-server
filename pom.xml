@@ -34,6 +34,7 @@
         <jakarta.version>6.0.0</jakarta.version>
         <springdoc.version>2.8.9</springdoc.version>
         <mybatis-plus.version>3.5.14</mybatis-plus.version>
+        <minio.version>8.5.2</minio.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -208,6 +209,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-jsqlparser</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- minio -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
 
 
