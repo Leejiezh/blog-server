@@ -4,7 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
-import jakxarta.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import blog.common.annotation.RepeatSubmit;
@@ -16,8 +16,7 @@ import blog.common.validate.AddGroup;
 import blog.common.validate.EditGroup;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
-import ${packageName}.domain.vo.${ClassName}Vo;
-import ${packageName}.domain.bo.${ClassName}Bo;
+import ${packageName}.domain.vo.${ClassName}VO;
 import ${packageName}.service.I${ClassName}Service;
 #if($table.crud)
 import blog.common.base.resp.TableDataInfo;
@@ -73,7 +72,7 @@ public class ${ClassName}Controller extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
     @GetMapping("/{${pkColumn.javaField}}")
-    public R<${ClassName}Vo> getInfo(@NotNull(message = "主键不能为空")
+    public R<${ClassName}VO> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
         return R.ok(${className}Service.queryById(${pkColumn.javaField}));
     }
@@ -86,7 +85,7 @@ public class ${ClassName}Controller extends BaseController {
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody ${ClassName}DTO dto) {
-        return R.ok(${className}Service.insertByBo(dto));
+        return R.ok(${className}Service.insertByDTO(dto));
     }
 
     /**
@@ -97,7 +96,7 @@ public class ${ClassName}Controller extends BaseController {
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody ${ClassName}DTO dto) {
-        return R.ok(${className}Service.updateByDTO(DTO));
+        return R.ok(${className}Service.updateByDTO(dto));
     }
 
     /**

@@ -6,8 +6,6 @@ import ${import};
 import ${packageName}.domain.${ClassName};
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
 import lombok.Data;
 
 import java.io.Serial;
@@ -47,7 +45,7 @@ public class ${ClassName}VO implements Serializable {
     @ExcelProperty(value = "${comment}", converter = ExcelDictConvert.class)
     @ExcelDictFormat(readConverterExp = "$column.readConverterExp()")
 #else
-    @ExcelProperty(value = "${comment}")
+    @Excel(value = "${comment}")
 #end
     private $column.javaType $column.javaField;
 
