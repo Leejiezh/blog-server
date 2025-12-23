@@ -1,5 +1,7 @@
 package ${packageName}.service.impl;
 
+import blog.common.base.service.impl.BaseServiceImpl;
+import blog.common.utils.StringUtils;
 import cn.hutool.core.bean.BeanUtil;
 #if($table.crud)
 import blog.common.base.resp.TableDataInfo;
@@ -73,36 +75,6 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Mapper,
         return baseMapper.selectVoList(lqw);
     }
 
-    private LambdaQueryWrapper<${ClassName}> buildQueryWrapper(${ClassName}DTO dto) {
-        Map<String, Object> params = dto.getParams();
-        LambdaQueryWrapper<${ClassName}> lqw = Wrappers.lambdaQuery();
-#foreach($column in $columns)
-#if($column.query)
-#set($queryType=$column.queryType)
-#set($javaField=$column.javaField)
-#set($javaType=$column.javaType)
-#set($columnName=$column.columnName)
-#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-#set($mpMethod=$column.queryType.toLowerCase())
-#if($queryType != 'BETWEEN')
-#if($javaType == 'String')
-#set($condition='StringUtils.isNotBlank(dto.get'+$AttrName+'())')
-#else
-#set($condition='dto.get'+$AttrName+'() != null')
-#end
-        lqw.$mpMethod($condition, ${ClassName}::get$AttrName, dto.get$AttrName());
-#else
-        lqw.between(params.get("begin$AttrName") != null && params.get("end$AttrName") != null,
-            ${ClassName}::get$AttrName ,params.get("begin$AttrName"), params.get("end$AttrName"));
-#end
-#end
-#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-#if($column.isPk==1)
-        lqw.orderByAsc(${ClassName}::get$AttrName);
-#end
-#end
-        return lqw;
-    }
 
     /**
      * 新增${functionName}
@@ -155,5 +127,37 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Mapper,
             //TODO 做一些业务上的校验,判断是否需要校验
         }
         return baseMapper.deleteByIds(ids) > 0;
+    }
+
+
+    private LambdaQueryWrapper<${ClassName}> buildQueryWrapper(${ClassName}DTO dto) {
+        Map<String, Object> params = dto.getParams();
+        LambdaQueryWrapper<${ClassName}> lqw = Wrappers.lambdaQuery();
+        #foreach($column in $columns)
+            #if($column.query)
+                #set($queryType=$column.queryType)
+                #set($javaField=$column.javaField)
+                #set($javaType=$column.javaType)
+                #set($columnName=$column.columnName)
+                #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+                #set($mpMethod=$column.queryType.toLowerCase())
+                #if($queryType != 'BETWEEN')
+                    #if($javaType == 'String')
+                        #set($condition='StringUtils.isNotBlank(dto.get'+$AttrName+'())')
+                    #else
+                        #set($condition='dto.get'+$AttrName+'() != null')
+                    #end
+                    lqw.$mpMethod($condition, ${ClassName}::get$AttrName, dto.get$AttrName());
+                #else
+                    lqw.between(params.get("begin$AttrName") != null && params.get("end$AttrName") != null,
+                        ${ClassName}::get$AttrName ,params.get("begin$AttrName"), params.get("end$AttrName"));
+                #end
+            #end
+            #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+            #if($column.isPk==1)
+                lqw.orderByAsc(${ClassName}::get$AttrName);
+            #end
+        #end
+        return lqw;
     }
 }

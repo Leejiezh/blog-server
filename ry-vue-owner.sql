@@ -1317,3 +1317,31 @@ INSERT INTO `sys_user_role` VALUES (1, 1);
 INSERT INTO `sys_user_role` VALUES (100, 100);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+--- minio文件表
+CREATE TABLE sys_file (
+id              BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+file_name       VARCHAR(255) NOT NULL COMMENT '原始文件名',
+file_suffix     VARCHAR(50)  COMMENT '文件后缀，如 jpg、png、pdf',
+content_type    VARCHAR(100) COMMENT '文件类型，如 image/jpeg',
+file_size       BIGINT COMMENT '文件大小（字节）',
+bucket_name     VARCHAR(100) NOT NULL COMMENT 'MinIO桶名',
+object_name     VARCHAR(500) NOT NULL COMMENT 'MinIO对象路径',
+file_url        VARCHAR(500) COMMENT '文件访问URL（永久/临时）',
+biz_type        VARCHAR(100) COMMENT '业务类型，如 USER_AVATAR、BLOG_IMAGE',
+biz_id          VARCHAR(100) COMMENT '业务ID，如用户ID、博客ID',
+is_public       TINYINT DEFAULT 0 COMMENT '是否公开（0-否 1-是）',
+create_by       VARCHAR(64) COMMENT '创建者',
+create_by_id    BIGINT COMMENT '创建者ID',
+create_time     DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+update_by       VARCHAR(64) COMMENT '更新者',
+update_by_id    BIGINT COMMENT '更新者ID',
+update_time     DATETIME NULL
+ON UPDATE CURRENT_TIMESTAMP
+COMMENT '更新时间',
+
+INDEX idx_biz (biz_type, biz_id)
+) COMMENT='文件信息表';
+
