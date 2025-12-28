@@ -3,6 +3,8 @@ package blog.web.controller.common;
 import java.util.List;
 
 import blog.biz.domain.dto.SysFileDTO;
+import blog.biz.domain.dto.UploadFileDTO;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import blog.common.utils.poi.ExcelUtil;
 import blog.biz.domain.vo.SysFileVO;
 import blog.biz.service.ISysFileService;
 import blog.common.base.resp.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 文件信息
@@ -66,7 +69,7 @@ public class SysFileController extends BaseController {
     @PreAuthorize("@ss.hasPermi('biz:file:query')")
     @GetMapping("/{id}")
     public R<SysFileVO> getInfo(@NotNull(message = "主键不能为空")
-                                     @PathVariable Long id) {
+                                @PathVariable Long id) {
         return R.ok(sysFileService.queryById(id));
     }
 
@@ -104,4 +107,17 @@ public class SysFileController extends BaseController {
                           @PathVariable Long[] ids) {
         return R.ok(sysFileService.deleteWithValidByIds(List.of(ids), true));
     }
+
+    @PostMapping("/uploadFile")
+    @Log(title = "上传文件", businessType = BusinessType.INSERT)
+    public R<SysFileVO> uploadFile(@NotNull(message = "文件不能为空") @RequestParam("file") MultipartFile file,
+                                   @NotBlank(message = "业务类型不能为空") @RequestParam String bizType,
+                                   @NotBlank(message = "业务ID不能为空") @RequestParam String bizId) {
+        UploadFileDTO dto = UploadFileDTO.builder()
+                .bizType(bizType)
+                .bizId(bizId)
+                .build();
+        return R.ok(sysFileService.uploadFile(file, dto));
+    }
+
 }

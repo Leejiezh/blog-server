@@ -1,11 +1,13 @@
 package blog.biz.service;
 
 import blog.biz.domain.SysFile;
+import blog.biz.domain.dto.UploadFileDTO;
 import blog.biz.domain.vo.SysFileVO;
 import blog.biz.domain.dto.SysFileDTO;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
 import blog.common.base.service.BaseService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
@@ -67,4 +69,6 @@ public interface ISysFileService extends BaseService<SysFile>{
      * @return 是否删除成功
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    SysFileVO uploadFile(MultipartFile file, UploadFileDTO dto);
 }

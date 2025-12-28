@@ -8,6 +8,8 @@ import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -19,9 +21,13 @@ import java.util.UUID;
 /**
  * MinIO 工具类，封装企业级常用文件操作
  */
+@Component
 public class MinioUtils {
 
     private final MinioClient minioClient;
+
+    @Value("${minio.bucket-name}")
+    private String bucket;
 
     public MinioUtils(MinioClient minioClient) {
         this.minioClient = minioClient;
@@ -76,6 +82,9 @@ public class MinioUtils {
      * @throws Exception 上传异常
      */
     public MinioFileInfo uploadFile(MultipartFile file, String bucket, String dir) throws Exception {
+        if (bucket == null){
+            bucket = this.bucket;
+        }
         makeBucket(bucket);
 
         String originalFilename = file.getOriginalFilename();
