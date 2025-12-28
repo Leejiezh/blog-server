@@ -155,6 +155,6 @@ xss:
 # minio
 minio:
   endpoint: http://localhost:9000
-  access-key: leejie
-  secret-key: leejie123
+  access-key: YOfz6VNqtztqoMYMKJEG
+  secret-key: gAHjeLeYM4vL21z5UCVcRcL3gRt587rqoQhOvJVR
   bucket-name: blog-bucket

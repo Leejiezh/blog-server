@@ -3,7 +3,10 @@ package blog.biz.domain.vo;
 import java.util.Date;
 
 import blog.common.annotation.Excel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,6 +19,9 @@ import java.io.Serializable;
  * @author leejie
  * @date 2025-12-23
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class SysFileVO implements Serializable {
 

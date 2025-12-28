@@ -5,7 +5,7 @@ package blog.framework.web.domain.server;
  *
  * @author leejie
  */
-public class SysFile {
+public class SysFiles {
     /**
      * 盘符路径
      */

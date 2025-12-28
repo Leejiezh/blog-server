@@ -1,7 +1,9 @@
 package blog.biz.service.impl;
 
+import blog.biz.domain.dto.UploadFileDTO;
 import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.StringUtils;
+import blog.common.utils.minio.MinioUtils;
 import cn.hutool.core.bean.BeanUtil;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
@@ -16,6 +18,7 @@ import blog.biz.domain.vo.SysFileVO;
 import blog.biz.domain.SysFile;
 import blog.biz.mapper.SysFileMapper;
 import blog.biz.service.ISysFileService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ import java.util.Collection;
 public class SysFileServiceImpl extends BaseServiceImpl<SysFileMapper, SysFile> implements ISysFileService {
 
     private final SysFileMapper baseMapper;
+    private final MinioUtils minioUtils;
 
     /**
      * 查询文件信息
@@ -140,5 +144,22 @@ public class SysFileServiceImpl extends BaseServiceImpl<SysFileMapper, SysFile> 
             //TODO 做一些业务上的校验,判断是否需要校验
         }
         return baseMapper.deleteByIds(ids) > 0;
+    }
+
+    @Override
+    public SysFileVO uploadFile(MultipartFile file, UploadFileDTO dto) {
+        try {
+            MinioUtils.MinioFileInfo minioFileInfo = minioUtils.uploadFile(file, null, dto.getDir());
+            return SysFileVO.builder()
+                    .fileName(minioFileInfo.getOriginalFilename())
+                    .contentType(minioFileInfo.getContentType())
+                    .fileSize(minioFileInfo.getSize())
+                    .bucketName(minioFileInfo.getBucket())
+                    .objectName(minioFileInfo.getObjectName())
+                    .fileUrl(minioFileInfo.getUrl())
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

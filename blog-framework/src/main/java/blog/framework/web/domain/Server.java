@@ -11,7 +11,7 @@ import blog.framework.web.domain.server.Cpu;
 import blog.framework.web.domain.server.Jvm;
 import blog.framework.web.domain.server.Mem;
 import blog.framework.web.domain.server.Sys;
-import blog.framework.web.domain.server.SysFile;
+import blog.framework.web.domain.server.SysFiles;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -54,7 +54,7 @@ public class Server {
     /**
      * 磁盘相关信息
      */
-    private List<SysFile> sysFiles = new LinkedList<SysFile>();
+    private List<SysFiles> sysFiles = new LinkedList<SysFiles>();
 
     public Cpu getCpu() {
         return cpu;
@@ -88,11 +88,11 @@ public class Server {
         this.sys = sys;
     }
 
-    public List<SysFile> getSysFiles() {
+    public List<SysFiles> getSysFiles() {
         return sysFiles;
     }
 
-    public void setSysFiles(List<SysFile> sysFiles) {
+    public void setSysFiles(List<SysFiles> sysFiles) {
         this.sysFiles = sysFiles;
     }
 
@@ -183,15 +183,15 @@ public class Server {
             long free = fs.getUsableSpace();
             long total = fs.getTotalSpace();
             long used = total - free;
-            SysFile sysFile = new SysFile();
-            sysFile.setDirName(fs.getMount());
-            sysFile.setSysTypeName(fs.getType());
-            sysFile.setTypeName(fs.getName());
-            sysFile.setTotal(convertFileSize(total));
-            sysFile.setFree(convertFileSize(free));
-            sysFile.setUsed(convertFileSize(used));
-            sysFile.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
-            sysFiles.add(sysFile);
+            SysFiles sysFiles = new SysFiles();
+            sysFiles.setDirName(fs.getMount());
+            sysFiles.setSysTypeName(fs.getType());
+            sysFiles.setTypeName(fs.getName());
+            sysFiles.setTotal(convertFileSize(total));
+            sysFiles.setFree(convertFileSize(free));
+            sysFiles.setUsed(convertFileSize(used));
+            sysFiles.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
+            this.sysFiles.add(sysFiles);
         }
     }
 
