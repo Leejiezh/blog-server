@@ -1,8 +1,10 @@
 package blog.biz.domain.vo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import blog.common.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -104,7 +106,8 @@ public class SysFileVO implements Serializable {
      * 创建时间
      */
     @Excel(name = "创建时间")
-    private Date createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime createdTime;
 
 
 }

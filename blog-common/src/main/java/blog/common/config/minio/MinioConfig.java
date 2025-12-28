@@ -2,6 +2,7 @@ package blog.common.config.minio;
 
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,22 +11,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
-    @Value("${minio.endpoint}")
-    private String endpoint;
-
-    @Value("${minio.access-key}")
-    private String accessKey;
-
-    @Value("${minio.secret-key}")
-    private String secretKey;
+    @Autowired
+    private MinioProperties properties;
 
     @Bean
     public MinioClient minioClient() {
         MinioClient client = MinioClient.builder()
-                .endpoint(endpoint)
-                .credentials(accessKey, secretKey)
+                .endpoint(properties.getEndpoint())
+                .credentials(properties.getAccessKey(), properties.getSecretKey())
                 .build();
-        log.info("minio 服务启动成功~~~~");
+        log.info("~~~~minio 服务启动成功~~~~");
         return client;
     }
 }
