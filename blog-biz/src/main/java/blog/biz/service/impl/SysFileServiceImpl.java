@@ -7,6 +7,8 @@ import blog.common.utils.minio.MinioUtils;
 import cn.hutool.core.bean.BeanUtil;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -157,6 +159,7 @@ public class SysFileServiceImpl extends BaseServiceImpl<SysFileMapper, SysFile> 
                     .bucketName(minioFileInfo.getBucket())
                     .objectName(minioFileInfo.getObjectName())
                     .fileUrl(minioFileInfo.getUrl())
+                    .createdTime(minioFileInfo.getUploadTime().toLocalDateTime())
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e);

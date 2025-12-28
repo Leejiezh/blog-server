@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -176,7 +177,7 @@ public class MinioUtils {
                 .url(url)
                 .size(stat.size())
                 .contentType(stat.contentType())
-                .uploadTime(stat.lastModified())
+                .uploadTime(stat.lastModified().withZoneSameInstant(ZoneId.of("Asia/Shanghai")))
                 .build();
     }
 
