@@ -1320,7 +1320,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 
---- minio文件表
+-- minio文件表
+DROP TABLE IF EXISTS `biz_article`;
 CREATE TABLE sys_file (
 id              BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
 file_name       VARCHAR(255) NOT NULL COMMENT '原始文件名',
