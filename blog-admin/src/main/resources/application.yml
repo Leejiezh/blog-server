@@ -73,7 +73,7 @@ spring:
       database: 1
       # 密码
 #      username: brxredis
-#      password: Brx123456
+      password: 123456
       # 连接超时时间
       timeout: 10s
       lettuce:
