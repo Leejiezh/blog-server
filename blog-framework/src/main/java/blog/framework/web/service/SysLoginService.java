@@ -69,7 +69,11 @@ public class SysLoginService {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             AuthenticationContextHolder.setContext(authenticationToken);
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            // 触发 Spring Security 认证流程！ 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            //- 接收 UsernamePasswordAuthenticationToken
+            //- 委托给 ProviderManager
+            //- ProviderManager 找到支持的 AuthenticationProvider
+            //- 默认使用 DaoAuthenticationProvider
             authentication = authenticationManager.authenticate(authenticationToken);
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
