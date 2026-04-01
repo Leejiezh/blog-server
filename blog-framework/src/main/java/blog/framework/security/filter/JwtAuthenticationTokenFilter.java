@@ -27,6 +27,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
 
+    /**
+     * - 从请求头获取token
+     * - 验证token有效性
+     * - 解析Token获取用户信息
+     * - 将用户信息存入SecurityContext
+     * 
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {

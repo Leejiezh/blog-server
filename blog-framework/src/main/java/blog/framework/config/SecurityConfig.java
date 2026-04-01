@@ -80,11 +80,14 @@ public class SecurityConfig {
      * permitAll           |   用户可以任意访问
      * rememberMe          |   允许通过remember-me登录的用户访问
      * authenticated       |   用户登录后可访问
+     * 
+     * 过滤器执行顺序：
+     * CorsFilter → JwtAuthenticationTokenFilter → UsernamePasswordAuthenticationFilter → ... 
      */
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                // CSRF禁用，因为不使用session
+                // CSRF禁用，因为不使用session (使用jwt不需要)
                 .csrf(csrf -> csrf.disable())
                 // 禁用HTTP响应标头
                 .headers((headersCustomizer) -> {
@@ -107,7 +110,7 @@ public class SecurityConfig {
                 })
                 // 添加Logout filter
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
-                // 添加JWT filter
+                // 添加JWT filter (在 UsernamePasswordAuthenticationFilter 之前)
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加CORS filter
                 .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)
