@@ -11,6 +11,61 @@ This is a Spring Boot 3.5.4 multi-module Maven project using Java 17. The blog s
 - **blog-generator**: Code generation utilities
 - **blog-common**: Shared common utilities and core classes
 
+## Technology Stack & Versions
+
+### Core Frameworks
+| Framework | Version | Notes |
+|-----------|---------|-------|
+| **Spring Boot** | 3.5.4 | Main framework |
+| **Spring Security** | 6.5.2 | Managed by Spring Boot 3.5.4 |
+| **Java** | 17 | LTS version |
+
+### Database & ORM
+| Library | Version | Notes |
+|---------|---------|-------|
+| **MyBatis-Plus** | 3.5.14 | ORM framework with Spring Boot 3 support |
+| **MyBatis Spring Boot** | 3.0.4 | MyBatis integration |
+| **PageHelper** | 2.1.1 | Pagination plugin |
+| **Druid** | 1.2.23 | Database connection pool |
+| **MySQL Connector** | 8.2.0 | MySQL driver |
+
+### Security & Authentication
+| Library | Version | Notes |
+|---------|---------|-------|
+| **JWT (jjwt)** | 0.9.1 | Token generation and parsing |
+| **BCrypt** | - | Password encryption (via Spring Security) |
+
+### API & Documentation
+| Library | Version | Notes |
+|---------|---------|-------|
+| **Springdoc OpenAPI** | 2.8.9 | Swagger/OpenAPI 3.0 documentation |
+| **Jakarta Servlet API** | 6.0.0 | Servlet specification |
+
+### Utilities & Tools
+| Library | Version | Notes |
+|---------|---------|-------|
+| **Lombok** | 1.18.36 | Boilerplate code reduction |
+| **Fastjson2** | 2.0.58 | JSON parser |
+| **Commons IO** | 2.19.0 | IO utilities |
+| **Apache POI** | 4.1.2 | Excel operations |
+| **Velocity** | 2.3 | Template engine for code generation |
+| **UserAgentUtils** | 1.21 | Browser/OS detection |
+| **OSHI** | 6.8.3 | System information |
+| **Kaptcha** | 2.3.3 | Captcha generation |
+
+### Storage
+| Library | Version | Notes |
+|---------|---------|-------|
+| **MinIO** | 8.5.2 | Object storage client |
+
+### Maven Plugins
+| Plugin | Version | Notes |
+|--------|---------|-------|
+| **maven-compiler-plugin** | 3.13.0 | Java compilation |
+| **spring-boot-maven-plugin** | 3.3.0 | Spring Boot packaging |
+
+**Note:** Spring Security version is managed by Spring Boot's dependency management. Spring Boot 3.5.4 uses Spring Security 6.5.2.
+
 ## Build Commands
 
 ### Maven Commands (run from root directory)
