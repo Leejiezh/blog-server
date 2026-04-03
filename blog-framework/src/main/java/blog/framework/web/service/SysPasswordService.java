@@ -30,15 +30,6 @@ public class SysPasswordService {
     @Value(value = "${user.password.lockTime}")
     private int lockTime;
 
-    /**
-     * 登录账户密码错误次数缓存键名
-     *
-     * @param username 用户名
-     * @return 缓存键key
-     */
-    private String getCacheKey(String username) {
-        return CacheConstants.PWD_ERR_CNT_KEY + username;
-    }
 
     public void validate(SysUser user) {
         Authentication usernamePasswordAuthenticationToken = AuthenticationContextHolder.getContext();
@@ -72,5 +63,15 @@ public class SysPasswordService {
         if (redisCache.hasKey(getCacheKey(loginName))) {
             redisCache.deleteObject(getCacheKey(loginName));
         }
+    }
+
+    /**
+     * 登录账户密码错误次数缓存键名
+     *
+     * @param username 用户名
+     * @return 缓存键key
+     */
+    private String getCacheKey(String username) {
+        return CacheConstants.PWD_ERR_CNT_KEY + username;
     }
 }

@@ -1,13 +1,16 @@
 package blog.framework.config;
 
+import blog.framework.security.provider.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -58,6 +61,10 @@ public class SecurityConfig {
     @Autowired
     private PermitAllUrlProperties permitAllUrl;
 
+    @Autowired
+    @Lazy
+    private CustomAuthenticationProvider customAuthenticationProvider;
+
     /**
      * 身份验证实现
      */
@@ -88,7 +95,7 @@ public class SecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 // CSRF禁用，因为不使用session (使用jwt不需要)
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 // 禁用HTTP响应标头
                 .headers((headersCustomizer) -> {
                     headersCustomizer.cacheControl(HeadersConfigurer.CacheControlConfig::disable).frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);
@@ -108,6 +115,7 @@ public class SecurityConfig {
                             // 除上面外的所有请求全部需要鉴权认证
                             .anyRequest().authenticated();
                 })
+                .authenticationProvider(customAuthenticationProvider)
                 // 添加Logout filter
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
                 // 添加JWT filter (在 UsernamePasswordAuthenticationFilter 之前)

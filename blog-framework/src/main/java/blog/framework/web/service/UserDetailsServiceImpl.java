@@ -28,9 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private ISysUserService userService;
 
     @Autowired
-    private SysPasswordService passwordService;
-
-    @Autowired
     private SysPermissionService permissionService;
 
     @Override
@@ -47,7 +44,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new ServiceException(MessageUtils.message("user.blocked"));
         }
 
-        passwordService.validate(user);
+        //密码验证转移到CustomAuthenticationProvider.additionalAuthenticationChecks
+//        passwordService.validate(user);
 
         return createLoginUser(user);
     }

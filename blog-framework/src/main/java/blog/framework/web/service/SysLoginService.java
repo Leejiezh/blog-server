@@ -69,7 +69,8 @@ public class SysLoginService {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             AuthenticationContextHolder.setContext(authenticationToken);
-            // 触发 Spring Security 认证流程！ 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            // 触发 Spring Security 认证流程！
+            // 该方法会去调用：UserDetailsServiceImpl.loadUserByUsername，CustomAuthenticationProvider.additionalAuthenticationChecks
             //- 接收 UsernamePasswordAuthenticationToken
             //- 委托给 ProviderManager
             //- ProviderManager 找到支持的 AuthenticationProvider
@@ -86,8 +87,11 @@ public class SysLoginService {
         } finally {
             AuthenticationContextHolder.clearContext();
         }
+        // 记录登录成功日志
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        // 获取认证后的用户信息
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        // 记录登录信息
         recordLoginInfo(loginUser.getUserId());
         // 生成token
         return tokenService.createToken(loginUser);
