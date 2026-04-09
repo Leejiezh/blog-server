@@ -29,20 +29,24 @@ public class EntityMetaObjectHandler implements MetaObjectHandler {
                 baseEntity.setCreateTime(current);
                 // 如果创建人为空，则填充当前登录用户的信息
                 if (ObjectUtil.isNull(baseEntity.getCreateBy())) {
-                    LoginUser loginUser = SecurityUtils.getLoginUser();
+                    LoginUser loginUser = getLoginUserSafely();
                     if (ObjectUtil.isNotNull(loginUser)) {
                         // 填充创建人ID
                         baseEntity.setCreateById(loginUser.getUserId());
                         // 填充创建人
                         baseEntity.setCreateBy(loginUser.getUsername());
                     } else {
-                        // 填充创建人
+                        // 用户未登录时，填充默认值
                         baseEntity.setCreateById(DEFAULT_USER_ID);
+                        baseEntity.setCreateBy("");
                     }
                 }
-            }else {
-                this.strictInsertFill(metaObject, "createBy", String.class, SecurityUtils.getUsername());
-                this.strictInsertFill(metaObject, "createById", Long.class, SecurityUtils.getUserId());
+            } else {
+                LoginUser loginUser = getLoginUserSafely();
+                String username = ObjectUtil.isNotNull(loginUser) ? loginUser.getUsername() : "";
+                Long userId = ObjectUtil.isNotNull(loginUser) ? loginUser.getUserId() : DEFAULT_USER_ID;
+                this.strictInsertFill(metaObject, "createBy", String.class, username);
+                this.strictInsertFill(metaObject, "createById", Long.class, userId);
                 this.strictInsertFill(metaObject, "createTime", java.util.Date.class, new Date());
             }
         } catch (Exception e) {
@@ -57,20 +61,37 @@ public class EntityMetaObjectHandler implements MetaObjectHandler {
                 baseEntity.setUpdateTime(new Date());
 
                 //获取当前登录用户信息
-                LoginUser loginUser = SecurityUtils.getLoginUser();
+                LoginUser loginUser = getLoginUserSafely();
                 if (ObjectUtil.isNotNull(loginUser)){
                     baseEntity.setUpdateBy(loginUser.getUsername());
                     baseEntity.setUpdateById(loginUser.getUserId());
                 }else {
                     baseEntity.setUpdateById(DEFAULT_USER_ID);
+                    baseEntity.setUpdateBy("");
                 }
             } else {
-                this.strictInsertFill(metaObject, "", String.class, SecurityUtils.getUsername());
-                this.strictInsertFill(metaObject, "updatupdateByeById", Long.class, SecurityUtils.getUserId());
+                LoginUser loginUser = getLoginUserSafely();
+                String username = ObjectUtil.isNotNull(loginUser) ? loginUser.getUsername() : "";
+                Long userId = ObjectUtil.isNotNull(loginUser) ? loginUser.getUserId() : DEFAULT_USER_ID;
+                this.strictInsertFill(metaObject, "updateBy", String.class, username);
+                this.strictInsertFill(metaObject, "updateById", Long.class, userId);
                 this.strictInsertFill(metaObject, "updateTime", java.util.Date.class, new Date());
             }
         } catch (Exception e) {
             throw new ServiceException("自动注入异常 => " + e.getMessage(), HttpStatus.HTTP_UNAUTHORIZED);
+        }
+    }
+
+    /**
+     * 安全获取当前登录用户信息，不会抛出异常
+     *
+     * @return 登录用户信息，未登录时返回null
+     */
+    private LoginUser getLoginUserSafely() {
+        try {
+            return SecurityUtils.getLoginUser();
+        } catch (Exception e) {
+            return null;
         }
     }
 }
