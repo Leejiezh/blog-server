@@ -1,7 +1,13 @@
 package blog.web.controller.business;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import blog.biz.domain.Article;
+import blog.biz.domain.Category;
+import blog.biz.service.IArticleService;
+import blog.common.utils.bean.BeanUtils;
+import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
@@ -35,6 +41,7 @@ import blog.common.base.resp.TableDataInfo;
 public class CategoryController extends BaseController {
 
     private final ICategoryService categoryService;
+    private final IArticleService articleService;
 
     /**
      * 查询文章分类列表
@@ -101,6 +108,15 @@ public class CategoryController extends BaseController {
     @DeleteMapping("/{ids}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable Long[] ids) {
+        List<Article> list = articleService.lambdaQuery().select(Article::getCategoryId).in(Article::getCategoryId, List.of(ids)).list();
+        if (CollUtil.isNotEmpty(list)){
+            List<Long> catalogIds = list.stream().map(Article::getCategoryId).toList();
+            List<Category> categories = categoryService.listByIds(catalogIds);
+            if (CollUtil.isNotEmpty(categories)){
+                String categoryNames = categories.stream().map(Category::getCategoryName).collect(Collectors.joining(","));
+                return R.fail("分类[" + categoryNames + "]下存在文章,不允许删除");
+            }
+        }
         return R.ok(categoryService.removeByIds(List.of(ids)));
     }
 }
