@@ -7,12 +7,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import blog.common.annotation.Excel;
 import blog.common.annotation.Excel.ColumnType;
 import blog.common.base.entity.BaseEntity;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 系统访问记录表 sys_logininfor
  *
  * @author leejie
  */
+@Alias("SysLogininfor")
 public class SysLogininfor extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

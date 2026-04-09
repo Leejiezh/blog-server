@@ -2,12 +2,14 @@ package blog.system.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 用户和角色关联 sys_user_role
  *
  * @author leejie
  */
+@Alias("SysUserRole")
 public class SysUserRole {
     /**
      * 用户ID
