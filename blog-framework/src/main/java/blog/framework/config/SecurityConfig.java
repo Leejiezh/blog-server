@@ -47,7 +47,7 @@ public class SecurityConfig {
      * token认证过滤器
      */
     @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     /**
      * 跨域过滤器
@@ -119,7 +119,7 @@ public class SecurityConfig {
                 // 添加Logout filter
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
                 // 添加JWT filter (在 UsernamePasswordAuthenticationFilter 之前)
-                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加CORS filter
                 .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)
                 .addFilterBefore(corsFilter, LogoutFilter.class)
