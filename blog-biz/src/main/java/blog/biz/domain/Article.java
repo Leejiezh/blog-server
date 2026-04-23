@@ -91,4 +91,10 @@ public class Article extends BaseEntity {
     @TableField(exist = false)
     private String categoryName;
 
+    /**
+     * 文章类型名称
+     */
+    @TableField(exist = false)
+    private String typeName;
+
 }
