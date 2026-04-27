@@ -74,7 +74,6 @@ public class ArticleTypeServiceImpl extends BaseServiceImpl<ArticleTypeMapper, A
     }
 
     private LambdaQueryWrapper<ArticleType> buildQueryWrapper(ArticleTypeDTO dto) {
-        Map<String, Object> params = dto.getParams();
         LambdaQueryWrapper<ArticleType> lqw = Wrappers.lambdaQuery();
         lqw.orderByAsc(ArticleType::getSortOrder);
         lqw.like(StringUtils.isNotBlank(dto.getTypeName()), ArticleType::getTypeName, dto.getTypeName());

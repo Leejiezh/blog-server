@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.util.Date;
 
-import java.io.Serial;
 
 /**
  * 文件信息对象 sys_file

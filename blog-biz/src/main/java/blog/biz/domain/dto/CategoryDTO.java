@@ -1,6 +1,5 @@
 package blog.biz.domain.dto;
 
-import blog.biz.domain.Category;
 import blog.common.base.entity.BaseEntity;
 import blog.common.validate.AddGroup;
 import blog.common.validate.EditGroup;

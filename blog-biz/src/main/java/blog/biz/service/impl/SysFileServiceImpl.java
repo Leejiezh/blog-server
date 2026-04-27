@@ -7,8 +7,6 @@ import blog.common.utils.minio.MinioUtils;
 import cn.hutool.core.bean.BeanUtil;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -78,7 +76,6 @@ public class SysFileServiceImpl extends BaseServiceImpl<SysFileMapper, SysFile> 
     }
 
     private LambdaQueryWrapper<SysFile> buildQueryWrapper(SysFileDTO dto) {
-        Map<String, Object> params = dto.getParams();
         LambdaQueryWrapper<SysFile> lqw = Wrappers.lambdaQuery();
         lqw.orderByAsc(SysFile::getId);
         lqw.like(StringUtils.isNotBlank(dto.getFileName()), SysFile::getFileName, dto.getFileName());

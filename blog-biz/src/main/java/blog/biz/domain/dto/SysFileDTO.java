@@ -1,14 +1,11 @@
 package blog.biz.domain.dto;
 
-import blog.biz.domain.SysFile;
 import blog.common.base.entity.BaseEntity;
 import blog.common.validate.AddGroup;
 import blog.common.validate.EditGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import jakarta.validation.constraints.*;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 文件信息业务对象 sys_file

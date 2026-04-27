@@ -4,7 +4,6 @@ import blog.common.base.req.PageQuery;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.utils.DateUtils;
 import blog.common.base.service.impl.BaseServiceImpl;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

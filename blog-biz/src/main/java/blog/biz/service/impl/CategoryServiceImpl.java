@@ -1,8 +1,5 @@
 package blog.biz.service.impl;
 
-import blog.biz.domain.Article;
-import blog.biz.mapper.ArticleMapper;
-import blog.biz.service.IArticleService;
 import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.StringUtils;
 import cn.hutool.core.bean.BeanUtil;
@@ -75,7 +72,6 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
     }
 
     private LambdaQueryWrapper<Category> buildQueryWrapper(CategoryDTO dto) {
-        Map<String, Object> params = dto.getParams();
         LambdaQueryWrapper<Category> lqw = Wrappers.lambdaQuery();
         lqw.orderByAsc(Category::getId);
         lqw.like(StringUtils.isNotBlank(dto.getCategoryName()), Category::getCategoryName, dto.getCategoryName());

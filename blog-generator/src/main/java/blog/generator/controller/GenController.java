@@ -95,8 +95,8 @@ public class GenController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:list')")
     @GetMapping(value = "/column/{tableId}")
-    public TableDataInfo<?> columnList(Long tableId) {
-        TableDataInfo<?> dataInfo = new TableDataInfo<>();
+    public TableDataInfo<GenTableColumn> columnList(Long tableId) {
+        TableDataInfo<GenTableColumn> dataInfo = new TableDataInfo<>();
         List<GenTableColumn> list = genTableColumnService.selectGenTableColumnListByTableId(tableId);
         dataInfo.setRows(list);
         dataInfo.setTotal(list.size());
