@@ -1,7 +1,6 @@
 package blog.common.validate.dicts;
 
 import blog.common.utils.StringUtils;
-import blog.common.utils.spring.SpringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -13,25 +12,15 @@ import jakarta.validation.ConstraintValidatorContext;
 public class DictPatternValidator implements ConstraintValidator<DictPattern, String> {
 
     /**
-     * 字典类型
-     */
-    private String dictType;
-
-    /**
-     * 分隔符
-     */
-    private String separator = ",";
-
-    /**
      * 初始化校验器，提取注解上的字典类型
      *
      * @param annotation 注解实例
      */
     @Override
     public void initialize(DictPattern annotation) {
-        this.dictType = annotation.dictType();
+        annotation.dictType();
         if (StringUtils.isNotBlank(annotation.separator())) {
-            this.separator = annotation.separator();
+            annotation.separator();
         }
     }
 
