@@ -9,8 +9,10 @@ import blog.common.utils.StringUtils;
 /**
  * 操作消息提醒
  *
+ * @deprecated 请使用 {@link R} 代替，提供类型安全的响应处理
  * @author leejie
  */
+@Deprecated
 public class Result extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
@@ -65,7 +67,9 @@ public class Result extends HashMap<String, Object> {
      * 返回成功消息
      *
      * @return 成功消息
+     * @deprecated 请使用 {@link R#ok()} 代替
      */
+    @Deprecated
     public static Result success() {
         return Result.success("操作成功");
     }
@@ -74,7 +78,9 @@ public class Result extends HashMap<String, Object> {
      * 返回成功数据
      *
      * @return 成功消息
+     * @deprecated 请使用 {@link R#ok(Object)} 代替
      */
+    @Deprecated
     public static Result success(Object data) {
         return Result.success("操作成功", data);
     }
@@ -84,7 +90,9 @@ public class Result extends HashMap<String, Object> {
      *
      * @param msg 返回内容
      * @return 成功消息
+     * @deprecated 请使用 {@link R#ok(Object, String)} 代替
      */
+    @Deprecated
     public static Result success(String msg) {
         return Result.success(msg, null);
     }
@@ -95,7 +103,9 @@ public class Result extends HashMap<String, Object> {
      * @param msg  返回内容
      * @param data 数据对象
      * @return 成功消息
+     * @deprecated 请使用 {@link R#ok(Object, String)} 代替
      */
+    @Deprecated
     public static Result success(String msg, Object data) {
         return new Result(HttpStatus.SUCCESS, msg, data);
     }
@@ -105,7 +115,9 @@ public class Result extends HashMap<String, Object> {
      *
      * @param msg 返回内容
      * @return 警告消息
+     * @deprecated 请使用 {@link R#warn(String)} 代替
      */
+    @Deprecated
     public static Result warn(String msg) {
         return Result.warn(msg, null);
     }
@@ -116,7 +128,9 @@ public class Result extends HashMap<String, Object> {
      * @param msg  返回内容
      * @param data 数据对象
      * @return 警告消息
+     * @deprecated 请使用 {@link R#warn(String, Object)} 代替
      */
+    @Deprecated
     public static Result warn(String msg, Object data) {
         return new Result(HttpStatus.WARN, msg, data);
     }
@@ -125,7 +139,9 @@ public class Result extends HashMap<String, Object> {
      * 返回错误消息
      *
      * @return 错误消息
+     * @deprecated 请使用 {@link R#fail()} 代替
      */
+    @Deprecated
     public static Result error() {
         return Result.error("操作失败");
     }
@@ -135,7 +151,9 @@ public class Result extends HashMap<String, Object> {
      *
      * @param msg 返回内容
      * @return 错误消息
+     * @deprecated 请使用 {@link R#fail(String)} 代替
      */
+    @Deprecated
     public static Result error(String msg) {
         return Result.error(msg, null);
     }
@@ -146,7 +164,9 @@ public class Result extends HashMap<String, Object> {
      * @param msg  返回内容
      * @param data 数据对象
      * @return 错误消息
+     * @deprecated 请使用 {@link R#fail(Object, String)} 代替
      */
+    @Deprecated
     public static Result error(String msg, Object data) {
         return new Result(HttpStatus.ERROR, msg, data);
     }
@@ -157,7 +177,9 @@ public class Result extends HashMap<String, Object> {
      * @param code 状态码
      * @param msg  返回内容
      * @return 错误消息
+     * @deprecated 请使用 {@link R#fail(int, String)} 代替
      */
+    @Deprecated
     public static Result error(int code, String msg) {
         return new Result(code, msg, null);
     }

@@ -2,6 +2,7 @@ package blog.web.controller.system;
 
 import java.util.List;
 
+import blog.common.core.domain.entity.SysDictType;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.core.domain.entity.SysDictType;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.system.service.ISysDictTypeService;
@@ -36,7 +36,7 @@ public class SysDictTypeController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysDictType dictType) {
+    public R<Page<?>> list(SysDictType dictType) {
         startPage();
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         return getDataTable(list);
@@ -56,7 +56,7 @@ public class SysDictTypeController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dict:query')")
     @GetMapping(value = "/{dictId}")
-    public Result getInfo(@PathVariable Long dictId) {
+    public R<SysDictType> getInfo(@PathVariable Long dictId) {
         return success(dictTypeService.selectDictTypeById(dictId));
     }
 
@@ -66,7 +66,7 @@ public class SysDictTypeController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:add')")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@Validated @RequestBody SysDictType dict) {
+    public R<Void> add(@Validated @RequestBody SysDictType dict) {
         if (!dictTypeService.checkDictTypeUnique(dict)) {
             return error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
@@ -80,7 +80,7 @@ public class SysDictTypeController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:edit')")
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@Validated @RequestBody SysDictType dict) {
+    public R<Void> edit(@Validated @RequestBody SysDictType dict) {
         if (!dictTypeService.checkDictTypeUnique(dict)) {
             return error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
@@ -94,7 +94,7 @@ public class SysDictTypeController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictIds}")
-    public Result remove(@PathVariable Long[] dictIds) {
+    public R<Void> remove(@PathVariable Long[] dictIds) {
         dictTypeService.deleteDictTypeByIds(dictIds);
         return success();
     }
@@ -105,7 +105,7 @@ public class SysDictTypeController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
-    public Result refreshCache() {
+    public R<Void> refreshCache() {
         dictTypeService.resetDictCache();
         return success();
     }
@@ -114,7 +114,7 @@ public class SysDictTypeController extends BaseController {
      * 获取字典选择框列表
      */
     @GetMapping("/optionselect")
-    public Result optionselect() {
+    public R<List<SysDictType>> optionselect() {
         List<SysDictType> dictTypes = dictTypeService.selectDictTypeAll();
         return success(dictTypes);
     }

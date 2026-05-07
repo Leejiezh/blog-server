@@ -2,6 +2,8 @@ package blog.web.controller.monitor;
 
 import java.util.List;
 
+import blog.common.base.resp.Page;
+import blog.common.base.resp.R;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.framework.web.service.SysPasswordService;
@@ -37,7 +37,7 @@ public class SysLogininforController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysLogininfor logininfor) {
+    public R<Page<?>> list(SysLogininfor logininfor) {
         startPage();
         List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
         return getDataTable(list);
@@ -55,14 +55,14 @@ public class SysLogininforController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
-    public Result remove(@PathVariable Long[] infoIds) {
+    public R<Void> remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public Result clean() {
+    public R<Void> clean() {
         logininforService.cleanLogininfor();
         return success();
     }
@@ -70,7 +70,7 @@ public class SysLogininforController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:logininfor:unlock')")
     @Log(title = "账户解锁", businessType = BusinessType.OTHER)
     @GetMapping("/unlock/{userName}")
-    public Result unlock(@PathVariable("userName") String userName) {
+    public R<Void> unlock(@PathVariable("userName") String userName) {
         passwordService.clearLoginRecordCache(userName);
         return success();
     }

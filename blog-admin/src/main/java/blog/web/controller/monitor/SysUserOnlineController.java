@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import blog.common.base.resp.Page;
+import blog.common.base.resp.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.constant.CacheConstants;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
 import blog.common.core.domain.model.LoginUser;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.core.redis.RedisCache;
 import blog.common.enums.BusinessType;
 import blog.common.utils.StringUtils;
@@ -40,7 +40,7 @@ public class SysUserOnlineController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('monitor:online:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(String ipaddr, String userName) {
+    public R<Page<?>> list(String ipaddr, String userName) {
         Collection<String> keys = redisCache.keys(CacheConstants.LOGIN_TOKEN_KEY + "*");
         List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
         for (String key : keys) {
@@ -57,7 +57,7 @@ public class SysUserOnlineController extends BaseController {
         }
         Collections.reverse(userOnlineList);
         userOnlineList.removeAll(Collections.singleton(null));
-        return getDataTable(userOnlineList);
+        return R.ok(Page.build(userOnlineList, userOnlineList.size()));
     }
 
     /**
@@ -66,8 +66,8 @@ public class SysUserOnlineController extends BaseController {
     @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
-    public Result forceLogout(@PathVariable String tokenId) {
+    public R forceLogout(@PathVariable String tokenId) {
         redisCache.deleteObject(CacheConstants.LOGIN_TOKEN_KEY + tokenId);
-        return success();
+        return R.ok("强退成功");
     }
 }

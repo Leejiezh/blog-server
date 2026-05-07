@@ -3,7 +3,7 @@ package blog.biz.service;
 import blog.biz.domain.Category;
 import blog.biz.domain.vo.CategoryVO;
 import blog.biz.domain.dto.CategoryDTO;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.Page;
 import blog.common.base.req.PageQuery;
 import blog.common.base.service.BaseService;
 
@@ -33,7 +33,7 @@ public interface ICategoryService extends BaseService<Category> {
      * @param pageQuery 分页参数
      * @return 文章分类分页列表
      */
-    TableDataInfo<CategoryVO> queryPageList(CategoryDTO DTO, PageQuery pageQuery);
+    Page<CategoryVO> queryPageList(CategoryDTO DTO, PageQuery pageQuery);
 
     /**
      * 查询符合条件的文章分类列表

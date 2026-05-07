@@ -1,11 +1,10 @@
 package blog.biz.service.impl;
 
+import blog.common.base.resp.Page;
 import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.StringUtils;
 import cn.hutool.core.bean.BeanUtil;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
@@ -52,10 +51,9 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
      * @return 文章分类分页列表
      */
     @Override
-    public TableDataInfo<CategoryVO> queryPageList(CategoryDTO dto, PageQuery pageQuery) {
+    public blog.common.base.resp.Page<CategoryVO> queryPageList(CategoryDTO dto, PageQuery pageQuery) {
         LambdaQueryWrapper<Category> lqw = buildQueryWrapper(dto);
-        Page<CategoryVO> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
-        return TableDataInfo.build(result);
+        return Page.build(baseMapper.selectVoPage(pageQuery.build(), lqw));
     }
 
     /**

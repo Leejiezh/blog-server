@@ -2,6 +2,7 @@ package blog.web.controller.system;
 
 import java.util.List;
 
+import blog.common.base.resp.R;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,9 +40,8 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list")
-    public Result list(SysDept dept) {
-        List<SysDept> depts = deptService.selectDeptList(dept);
-        return success(depts);
+    public R<List<SysDept>> list(SysDept dept) {
+        return success(deptService.selectDeptList(dept));
     }
 
     /**
@@ -49,7 +49,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
-    public Result excludeChild(@PathVariable(value = "deptId", required = false) Long deptId) {
+    public R<List<SysDept>> excludeChild(@PathVariable(value = "deptId", required = false) Long deptId) {
         List<SysDept> depts = deptService.selectDeptList(new SysDept());
         depts.removeIf(d -> d.getDeptId().intValue() == deptId || ArrayUtils.contains(StringUtils.split(d.getAncestors(), ","), deptId + ""));
         return success(depts);
@@ -60,7 +60,7 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dept:query')")
     @GetMapping(value = "/{deptId}")
-    public Result getInfo(@PathVariable Long deptId) {
+    public R<SysDept> getInfo(@PathVariable Long deptId) {
         deptService.checkDeptDataScope(deptId);
         return success(deptService.selectDeptById(deptId));
     }
@@ -71,7 +71,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dept:add')")
     @Log(title = "部门管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@Validated @RequestBody SysDept dept) {
+    public R add(@Validated @RequestBody SysDept dept) {
         if (!deptService.checkDeptNameUnique(dept)) {
             return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         }
@@ -85,7 +85,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dept:edit')")
     @Log(title = "部门管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@Validated @RequestBody SysDept dept) {
+    public R edit(@Validated @RequestBody SysDept dept) {
         Long deptId = dept.getDeptId();
         deptService.checkDeptDataScope(deptId);
         if (!deptService.checkDeptNameUnique(dept)) {
@@ -105,7 +105,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dept:remove')")
     @Log(title = "部门管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{deptId}")
-    public Result remove(@PathVariable Long deptId) {
+    public R remove(@PathVariable Long deptId) {
         if (deptService.hasChildByDeptId(deptId)) {
             return warn("存在下级部门,不允许删除");
         }

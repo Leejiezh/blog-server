@@ -14,7 +14,9 @@ import com.google.code.kaptcha.Producer;
 import blog.common.config.BlogServerConfig;
 import blog.common.constant.CacheConstants;
 import blog.common.constant.Constants;
-import blog.common.base.resp.Result;
+import blog.common.base.resp.R;
+import java.util.HashMap;
+import java.util.Map;
 import blog.common.core.redis.RedisCache;
 import blog.common.utils.sign.Base64;
 import blog.common.utils.uuid.IdUtils;
@@ -43,12 +45,12 @@ public class CaptchaController {
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public Result getCode(HttpServletResponse response) throws IOException {
-        Result ajax = Result.success();
+    public R<Map<String, Object>> getCode(HttpServletResponse response) throws IOException {
+        Map<String, Object> data = new HashMap<>();
         boolean captchaEnabled = configService.selectCaptchaEnabled();
-        ajax.put("captchaEnabled", captchaEnabled);
+        data.put("captchaEnabled", captchaEnabled);
         if (!captchaEnabled) {
-            return ajax;
+            return R.ok(data);
         }
 
         // 保存验证码信息
@@ -76,11 +78,11 @@ public class CaptchaController {
         try {
             ImageIO.write(image, "jpg", os);
         } catch (IOException e) {
-            return Result.error(e.getMessage());
+            return R.fail(e.getMessage());
         }
 
-        ajax.put("uuid", uuid);
-        ajax.put("img", Base64.encode(os.toByteArray()));
-        return ajax;
+        data.put("uuid", uuid);
+        data.put("img", Base64.encode(os.toByteArray()));
+        return R.ok(data);
     }
 }

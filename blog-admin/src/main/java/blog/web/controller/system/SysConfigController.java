@@ -2,6 +2,8 @@ package blog.web.controller.system;
 
 import java.util.List;
 
+import blog.common.base.resp.Page;
+import blog.common.base.resp.R;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.system.domain.SysConfig;
 import blog.system.service.ISysConfigService;
+
+import static blog.common.base.resp.R.ok;
 
 /**
  * 参数配置 信息操作处理
@@ -39,7 +41,7 @@ public class SysConfigController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:config:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysConfig config) {
+    public R<Page<?>> list(SysConfig config) {
         startPage();
         List<SysConfig> list = configService.selectConfigList(config);
         return getDataTable(list);
@@ -59,7 +61,7 @@ public class SysConfigController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:config:query')")
     @GetMapping(value = "/{configId}")
-    public Result getInfo(@PathVariable Long configId) {
+    public R<SysConfig> getInfo(@PathVariable Long configId) {
         return success(configService.selectConfigById(configId));
     }
 
@@ -67,8 +69,8 @@ public class SysConfigController extends BaseController {
      * 根据参数键名查询参数值
      */
     @GetMapping(value = "/configKey/{configKey}")
-    public Result getConfigKey(@PathVariable String configKey) {
-        return success(configService.selectConfigByKey(configKey));
+    public R<String> getConfigKey(@PathVariable String configKey) {
+        return ok(configService.selectConfigByKey(configKey));
     }
 
     /**
@@ -77,7 +79,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:config:add')")
     @Log(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@Validated @RequestBody SysConfig config) {
+    public R<Void> add(@Validated @RequestBody SysConfig config) {
         if (!configService.checkConfigKeyUnique(config)) {
             return error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
@@ -91,7 +93,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:config:edit')")
     @Log(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@Validated @RequestBody SysConfig config) {
+    public R<Void> edit(@Validated @RequestBody SysConfig config) {
         if (!configService.checkConfigKeyUnique(config)) {
             return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
@@ -105,7 +107,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:config:remove')")
     @Log(title = "参数管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{configIds}")
-    public Result remove(@PathVariable Long[] configIds) {
+    public R<Void> remove(@PathVariable Long[] configIds) {
         configService.deleteConfigByIds(configIds);
         return success();
     }
@@ -116,7 +118,7 @@ public class SysConfigController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:config:remove')")
     @Log(title = "参数管理", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
-    public Result refreshCache() {
+    public R<Void> refreshCache() {
         configService.resetConfigCache();
         return success();
     }

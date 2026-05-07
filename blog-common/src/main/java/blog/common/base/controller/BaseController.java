@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import blog.common.constant.HttpStatus;
-import blog.common.base.resp.Result;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import blog.common.core.domain.model.LoginUser;
 import blog.common.core.page.PageDomain;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.core.page.TableSupport;
 import blog.common.utils.DateUtils;
 import blog.common.utils.PageUtils;
@@ -73,55 +73,51 @@ public class BaseController {
      * 响应请求分页数据
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    protected TableDataInfo<?> getDataTable(List<?> list) {
-        TableDataInfo rspData = new TableDataInfo<>();
-        rspData.setCode(HttpStatus.SUCCESS);
-        rspData.setMsg("查询成功");
-        rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
-        return rspData;
+    protected R<Page<?>> getDataTable(List<?> list) {
+        Page<?> page = Page.build(list, new PageInfo(list).getTotal());
+        return R.ok(page);
     }
 
     /**
      * 返回成功
      */
-    public Result success() {
-        return Result.success();
+    public R<Void> success() {
+        return R.ok();
     }
 
     /**
      * 返回失败消息
      */
-    public Result error() {
-        return Result.error();
+    public R<Void> error() {
+        return R.fail();
     }
 
     /**
      * 返回成功消息
      */
-    public Result success(String message) {
-        return Result.success(message);
+    public R<Void> success(String message) {
+        return R.ok(null, message);
     }
 
     /**
      * 返回成功消息
      */
-    public Result success(Object data) {
-        return Result.success(data);
+    public <T> R<T> success(T data) {
+        return R.ok(data);
     }
 
     /**
      * 返回失败消息
      */
-    public Result error(String message) {
-        return Result.error(message);
+    public R<Void> error(String message) {
+        return R.fail(message);
     }
 
     /**
      * 返回警告消息
      */
-    public Result warn(String message) {
-        return Result.warn(message);
+    public R<Void> warn(String message) {
+        return R.warn(message);
     }
 
     /**
@@ -130,8 +126,8 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected Result toAjax(int rows) {
-        return rows > 0 ? Result.success() : Result.error();
+    protected R<Void> toAjax(int rows) {
+        return rows > 0 ? R.ok() : R.fail();
     }
 
     /**
@@ -140,7 +136,7 @@ public class BaseController {
      * @param result 结果
      * @return 操作结果
      */
-    protected Result toAjax(boolean result) {
+    protected R<Void> toAjax(boolean result) {
         return result ? success() : error();
     }
 

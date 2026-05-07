@@ -10,6 +10,7 @@ import blog.common.annotation.Log;
 import blog.common.annotation.RepeatSubmit;
 import blog.common.base.controller.BaseController;
 import blog.common.base.req.PageQuery;
+import blog.common.base.resp.Page;
 import blog.common.base.resp.R;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.enums.BusinessType;
@@ -54,8 +55,8 @@ public class ArticleTypeController extends BaseController {
     @Operation(summary = "查询文章类型列表")
     @PreAuthorize("@ss.hasPermi('biz:articleType:list')")
     @GetMapping("/list")
-    public TableDataInfo<ArticleTypeVO> list(ArticleTypeDTO dto, PageQuery pageQuery) {
-        return articleTypeService.queryPageList(dto, pageQuery);
+    public R<Page<ArticleTypeVO>> list(ArticleTypeDTO dto, PageQuery pageQuery) {
+        return R.ok(articleTypeService.queryPageList(dto, pageQuery));
     }
 
     /**

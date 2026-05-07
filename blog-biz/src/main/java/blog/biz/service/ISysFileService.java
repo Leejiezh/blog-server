@@ -4,7 +4,7 @@ import blog.biz.domain.SysFile;
 import blog.biz.domain.dto.UploadFileDTO;
 import blog.biz.domain.vo.SysFileVO;
 import blog.biz.domain.dto.SysFileDTO;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.Page;
 import blog.common.base.req.PageQuery;
 import blog.common.base.service.BaseService;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +35,7 @@ public interface ISysFileService extends BaseService<SysFile>{
      * @param pageQuery 分页参数
      * @return 文件信息分页列表
      */
-    TableDataInfo<SysFileVO> queryPageList(SysFileDTO DTO, PageQuery pageQuery);
+    Page<SysFileVO> queryPageList(SysFileDTO DTO, PageQuery pageQuery);
 
     /**
      * 查询符合条件的文件信息列表

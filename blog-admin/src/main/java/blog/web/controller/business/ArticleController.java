@@ -3,7 +3,8 @@ package blog.web.controller.business;
 import java.util.Arrays;
 
 import blog.common.base.req.PageQuery;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
 import blog.common.enums.BusinessType;
 import blog.biz.domain.Article;
 import blog.biz.service.IArticleService;
@@ -40,8 +40,8 @@ public class ArticleController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:article:list')")
     @GetMapping("/list")
-    public TableDataInfo<Article> list(Article article, PageQuery pageQuery) {
-        return articleService.selectArticleList(article, pageQuery);
+    public R<Page<Article>> list(Article article, PageQuery pageQuery) {
+        return R.ok(articleService.selectArticleList(article, pageQuery));
     }
 
     /**
@@ -51,9 +51,9 @@ public class ArticleController extends BaseController {
     @Log(title = "文章", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Article article) {
-        TableDataInfo<Article> list = articleService.selectArticleList(article, null);
+        Page<Article> page = articleService.selectArticleList(article, null);
         ExcelUtil<Article> util = new ExcelUtil<Article>(Article.class);
-        util.exportExcel(response, list.getRows(), "文章数据");
+        util.exportExcel(response, page.getRows(), "文章数据");
     }
 
     /**
@@ -61,8 +61,8 @@ public class ArticleController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:article:query')")
     @GetMapping(value = "/{id}")
-    public Result getInfo(@PathVariable("id") Long id) {
-        return success(articleService.selectArticleById(id));
+    public R<Article> getInfo(@PathVariable("id") Long id) {
+        return R.ok(articleService.selectArticleById(id));
     }
 
     /**
@@ -71,7 +71,7 @@ public class ArticleController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:article:add')")
     @Log(title = "文章", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@RequestBody Article article) {
+    public R<Void> add(@RequestBody Article article) {
         return toAjax(articleService.insertArticle(article));
     }
 
@@ -81,7 +81,7 @@ public class ArticleController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:article:edit')")
     @Log(title = "文章", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@RequestBody Article article) {
+    public R<Void> edit(@RequestBody Article article) {
         return toAjax(articleService.updateArticle(article));
     }
 
@@ -91,7 +91,7 @@ public class ArticleController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:article:remove')")
     @Log(title = "文章", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public Result remove(@PathVariable Long[] ids) {
+    public R<Void> remove(@PathVariable Long[] ids) {
         return toAjax(articleService.removeByIds(Arrays.asList(ids)));
     }
 }

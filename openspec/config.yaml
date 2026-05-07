@@ -3,18 +3,86 @@ schema: spec-driven
 # Project context (optional)
 # This is shown to AI when creating artifacts.
 # Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  **Project**: LEEJIE Blog System (blog-server v3.9.0)
+  
+  **Tech Stack**:
+  - Java 17 + Spring Boot 3.5.4 (Jakarta EE 6.0)
+  - Spring Security 6.5.2 + JWT (jjwt 0.9.1)
+  - MyBatis-Plus 3.5.14 + Druid 1.2.23 + MySQL 8.2.0
+  - Redis (caching) + MinIO 8.5.2 (object storage)
+  - SpringDoc OpenAPI 2.8.9 (API documentation)
+  - Fastjson2 2.0.58, PageHelper 2.1.1, Lombok 1.18.36
+  
+  **Module Structure**:
+  - blog-admin: Admin web interface and entry point
+  - blog-framework: Core framework (security, config, aspects)
+  - blog-system: System management (users, roles, menus, departments)
+  - blog-biz: Business logic modules
+  - blog-common: Shared utilities and core classes
+  - blog-quartz: Scheduled task management
+  - blog-generator: Code generation utilities
+  
+  **Architecture Patterns**:
+  - Multi-module Maven project with parent POM
+  - Layered architecture: Controller → Service → Mapper
+  - Interface-based service design (I*Service, *ServiceImpl)
+  - JWT-based stateless authentication
+  - Global exception handling with GlobalExceptionHandler
+  - AOP aspects for logging, data scope, rate limiting
+  
+  **Code Conventions**:
+  - Classes: PascalCase (e.g., RedisCache, SecurityConfig)
+  - Methods/Variables: camelCase (e.g., getCacheObject())
+  - Constants: UPPER_SNAKE_CASE (e.g., DEFAULT_EXPIRE_TIME)
+  - REST URLs: kebab-case (e.g., /sys/user/list)
+  - Package: lowercase (e.g., blog.common.core.redis)
+  - Author: @author leejie in all class headers
+  
+  **Response Pattern**:
+  - Use R<T> wrapper for API responses (R.ok(), R.fail())
+  - Use TableDataInfo<T> for paginated results
+  - Response structure: {code: int, msg: String, data: T}
+  - Status codes: 200 (SUCCESS), 500 (ERROR), 601 (WARN)
+  
+  **Database Patterns**:
+  - MyBatis-Plus for ORM with @TableName, @TableField
+  - Logical deletion with @TableLogic
+  - Table prefix: sys_ for system tables
+  - Pagination with PageHelper or MyBatis-Plus IPage
+  
+  **Security Guidelines**:
+  - All endpoints require authentication unless explicitly permitted
+  - Use @PreAuthorize for method-level security
+  - Password encryption with BCryptPasswordEncoder
+  - JWT tokens for stateless authentication
+  
+  **Validation**:
+  - Jakarta validation annotations (@NotNull, @NotBlank, @Size)
+  - Validation groups: AddGroup, EditGroup, QueryGroup
+  
+  **Build Commands**:
+  - Full build: mvn clean install -DskipTests
+  - Run app: mvn spring-boot:run -pl blog-admin
+  - Package: mvn package -DskipTests
+  - Compile: mvn compile
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Keep proposals under 800 words
+    - Always include "Non-goals" section
+    - Specify affected modules explicitly
+    - Include success criteria as checkboxes
+  design:
+    - Include code examples for key changes
+    - Provide replacement mapping tables when refactoring
+    - List all files that need modification
+    - Include risk assessment and mitigation strategies
+  tasks:
+    - Break tasks into chunks of max 30 minutes
+    - Include verification commands for each phase
+    - Provide before/after code examples
+    - List common pitfalls and how to avoid them
+    - Include rollback steps

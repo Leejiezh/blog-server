@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import blog.biz.domain.Article;
 import blog.biz.domain.Category;
 import blog.biz.service.IArticleService;
+import blog.common.base.resp.Page;
 import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +26,6 @@ import blog.common.utils.poi.ExcelUtil;
 import blog.biz.domain.vo.CategoryVO;
 import blog.biz.domain.dto.CategoryDTO;
 import blog.biz.service.ICategoryService;
-import blog.common.base.resp.TableDataInfo;
 
 /**
  * 文章分类
@@ -47,8 +47,8 @@ public class CategoryController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('biz:category:list')")
     @GetMapping("/list")
-    public TableDataInfo<CategoryVO> list(CategoryDTO dto, PageQuery pageQuery) {
-        return categoryService.queryPageList(dto, pageQuery);
+    public R<Page<CategoryVO>> list(CategoryDTO dto, PageQuery pageQuery) {
+        return R.ok(categoryService.queryPageList(dto, pageQuery));
     }
 
     /**

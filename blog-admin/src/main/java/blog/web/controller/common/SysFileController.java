@@ -4,6 +4,7 @@ import java.util.List;
 
 import blog.biz.domain.dto.SysFileDTO;
 import blog.biz.domain.dto.UploadFileDTO;
+import blog.common.base.resp.Page;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +24,6 @@ import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.biz.domain.vo.SysFileVO;
 import blog.biz.service.ISysFileService;
-import blog.common.base.resp.TableDataInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -45,8 +45,8 @@ public class SysFileController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('biz:file:list')")
     @GetMapping("/list")
-    public TableDataInfo<SysFileVO> list(SysFileDTO dto, PageQuery pageQuery) {
-        return sysFileService.queryPageList(dto, pageQuery);
+    public R<Page<SysFileVO>> list(SysFileDTO dto, PageQuery pageQuery) {
+        return R.ok(sysFileService.queryPageList(dto, pageQuery));
     }
 
     /**

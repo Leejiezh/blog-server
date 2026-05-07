@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import blog.common.constant.HttpStatus;
-import blog.common.base.resp.Result;
+import blog.common.base.resp.R;
 import blog.common.core.text.Convert;
 import blog.common.exception.DemoModeException;
 import blog.common.exception.ServiceException;
@@ -32,85 +32,85 @@ public class GlobalExceptionHandler {
      * 权限校验异常
      */
     @ExceptionHandler(AccessDeniedException.class)
-    public Result handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request) {
+    public R<Void> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',权限校验失败'{}'", requestURI, e.getMessage());
-        return Result.error(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
+        return R.fail(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
     }
 
     /**
      * 请求方式不支持
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public Result handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
+    public R<Void> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
                                                       HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
-        return Result.error(e.getMessage());
+        return R.fail(e.getMessage());
     }
 
     /**
      * 业务异常
      */
     @ExceptionHandler(ServiceException.class)
-    public Result handleServiceException(ServiceException e, HttpServletRequest request) {
+    public R<String> handleServiceException(ServiceException e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
-        Integer code = e.getCode();
-        return StringUtils.isNotNull(code) ? Result.error(code, e.getMessage()) : Result.error(e.getMessage());
+        int code = e.getCode();
+        return R.fail(code, e.getMessage());
     }
 
     /**
      * 请求路径中缺少必需的路径变量
      */
     @ExceptionHandler(MissingPathVariableException.class)
-    public Result handleMissingPathVariableException(MissingPathVariableException e, HttpServletRequest request) {
+    public R<Void> handleMissingPathVariableException(MissingPathVariableException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求路径中缺少必需的路径变量'{}',发生系统异常.", requestURI, e);
-        return Result.error(String.format("请求路径中缺少必需的路径变量[%s]", e.getVariableName()));
+        return R.fail(String.format("请求路径中缺少必需的路径变量[%s]", e.getVariableName()));
     }
 
     /**
      * 请求参数类型不匹配
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public Result handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
+    public R<Void> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         String value = Convert.toStr(e.getValue());
         if (StringUtils.isNotEmpty(value)) {
             value = EscapeUtil.clean(value);
         }
         log.error("请求参数类型不匹配'{}',发生系统异常.", requestURI, e);
-        return Result.error(String.format("请求参数类型不匹配，参数[%s]要求类型为：'%s'，但输入值为：'%s'", e.getName(), e.getRequiredType().getName(), value));
+        return R.fail(String.format("请求参数类型不匹配，参数[%s]要求类型为：'%s'，但输入值为：'%s'", e.getName(), e.getRequiredType().getName(), value));
     }
 
     /**
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public Result handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+    public R<Void> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
-        return Result.error(e.getMessage());
+        return R.fail(e.getMessage());
     }
 
     /**
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public Result handleException(Exception e, HttpServletRequest request) {
+    public R<Void> handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
-        return Result.error(e.getMessage());
+        return R.fail(e.getMessage());
     }
 
     /**
      * 自定义验证异常
      */
     @ExceptionHandler(BindException.class)
-    public Result handleBindException(BindException e) {
+    public R<Void> handleBindException(BindException e) {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
-        return Result.error(message);
+        return R.fail(message);
     }
 
     /**
@@ -120,14 +120,14 @@ public class GlobalExceptionHandler {
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
-        return Result.error(message);
+        return R.fail(message);
     }
 
     /**
      * 演示模式异常
      */
     @ExceptionHandler(DemoModeException.class)
-    public Result handleDemoModeException(DemoModeException e) {
-        return Result.error("演示模式，不允许操作");
+    public R<Void> handleDemoModeException(DemoModeException e) {
+        return R.fail("演示模式，不允许操作");
     }
 }

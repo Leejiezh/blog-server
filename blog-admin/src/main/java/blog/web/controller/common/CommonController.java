@@ -1,7 +1,9 @@
 package blog.web.controller.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import blog.common.config.BlogServerConfig;
-import blog.common.base.resp.Result;
+import blog.common.base.resp.R;
 import blog.common.utils.StringUtils;
 import blog.common.utils.file.FileUploadUtils;
 import blog.common.utils.file.FileUtils;
@@ -65,21 +67,21 @@ public class CommonController {
      * 通用上传请求（单个）
      */
     @PostMapping("/upload")
-    public Result uploadFile(MultipartFile file) throws Exception {
+    public R<Map<String, Object>> uploadFile(MultipartFile file) throws Exception {
         try {
             // 上传文件路径
             String filePath = BlogServerConfig.getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
-            Result ajax = Result.success();
-            ajax.put("url", url);
-            ajax.put("fileName", fileName);
-            ajax.put("newFileName", FileUtils.getName(fileName));
-            ajax.put("originalFilename", file.getOriginalFilename());
-            return ajax;
+            Map<String, Object> data = new HashMap<>();
+            data.put("url", url);
+            data.put("fileName", fileName);
+            data.put("newFileName", FileUtils.getName(fileName));
+            data.put("originalFilename", file.getOriginalFilename());
+            return R.ok(data);
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return R.fail(e.getMessage());
         }
     }
 
@@ -87,7 +89,7 @@ public class CommonController {
      * 通用上传请求（多个）
      */
     @PostMapping("/uploads")
-    public Result uploadFiles(List<MultipartFile> files) throws Exception {
+    public R<Map<String, Object>> uploadFiles(List<MultipartFile> files) throws Exception {
         try {
             // 上传文件路径
             String filePath = BlogServerConfig.getUploadPath();
@@ -104,14 +106,14 @@ public class CommonController {
                 newFileNames.add(FileUtils.getName(fileName));
                 originalFilenames.add(file.getOriginalFilename());
             }
-            Result ajax = Result.success();
-            ajax.put("urls", StringUtils.join(urls, FILE_DELIMETER));
-            ajax.put("fileNames", StringUtils.join(fileNames, FILE_DELIMETER));
-            ajax.put("newFileNames", StringUtils.join(newFileNames, FILE_DELIMETER));
-            ajax.put("originalFilenames", StringUtils.join(originalFilenames, FILE_DELIMETER));
-            return ajax;
+            Map<String, Object> data = new HashMap<>();
+            data.put("urls", StringUtils.join(urls, FILE_DELIMETER));
+            data.put("fileNames", StringUtils.join(fileNames, FILE_DELIMETER));
+            data.put("newFileNames", StringUtils.join(newFileNames, FILE_DELIMETER));
+            data.put("originalFilenames", StringUtils.join(originalFilenames, FILE_DELIMETER));
+            return R.ok(data);
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return R.fail(e.getMessage());
         }
     }
 

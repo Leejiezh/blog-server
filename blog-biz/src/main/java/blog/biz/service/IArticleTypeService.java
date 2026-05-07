@@ -3,6 +3,7 @@ package blog.biz.service;
 import blog.biz.domain.ArticleType;
 import blog.biz.domain.vo.ArticleTypeVO;
 import blog.biz.domain.dto.ArticleTypeDTO;
+import blog.common.base.resp.Page;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
 import blog.common.base.service.BaseService;
@@ -33,7 +34,7 @@ public interface IArticleTypeService extends BaseService<ArticleType> {
      * @param pageQuery 分页参数
      * @return 文章类型分页列表
      */
-    TableDataInfo<ArticleTypeVO> queryPageList(ArticleTypeDTO dto, PageQuery pageQuery);
+    Page<ArticleTypeVO> queryPageList(ArticleTypeDTO dto, PageQuery pageQuery);
 
     /**
      * 查询符合条件的文章类型列表

@@ -3,6 +3,7 @@ package blog.web.controller.system;
 import java.util.ArrayList;
 import java.util.List;
 
+import blog.common.core.domain.entity.SysDictData;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.core.domain.entity.SysDictData;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import blog.common.enums.BusinessType;
 import blog.common.utils.StringUtils;
 import blog.common.utils.poi.ExcelUtil;
@@ -42,7 +42,7 @@ public class SysDictDataController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysDictData dictData) {
+    public R<Page<?>> list(SysDictData dictData) {
         startPage();
         List<SysDictData> list = dictDataService.selectDictDataList(dictData);
         return getDataTable(list);
@@ -62,7 +62,7 @@ public class SysDictDataController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dict:query')")
     @GetMapping(value = "/{dictCode}")
-    public Result getInfo(@PathVariable Long dictCode) {
+    public R<SysDictData> getInfo(@PathVariable Long dictCode) {
         return success(dictDataService.selectDictDataById(dictCode));
     }
 
@@ -70,7 +70,7 @@ public class SysDictDataController extends BaseController {
      * 根据字典类型查询字典数据信息
      */
     @GetMapping(value = "/type/{dictType}")
-    public Result dictType(@PathVariable String dictType) {
+    public R<List<SysDictData>> dictType(@PathVariable String dictType) {
         List<SysDictData> data = dictTypeService.selectDictDataByType(dictType);
         if (StringUtils.isNull(data)) {
             data = new ArrayList<SysDictData>();
@@ -84,7 +84,7 @@ public class SysDictDataController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:add')")
     @Log(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@Validated @RequestBody SysDictData dict) {
+    public R<Void> add(@Validated @RequestBody SysDictData dict) {
         dict.setCreateBy(getUsername());
         return toAjax(dictDataService.insertDictData(dict));
     }
@@ -95,7 +95,7 @@ public class SysDictDataController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:edit')")
     @Log(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@Validated @RequestBody SysDictData dict) {
+    public R<Void> edit(@Validated @RequestBody SysDictData dict) {
         dict.setUpdateBy(getUsername());
         return toAjax(dictDataService.updateDictData(dict));
     }
@@ -106,7 +106,7 @@ public class SysDictDataController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictCodes}")
-    public Result remove(@PathVariable Long[] dictCodes) {
+    public R<Void> remove(@PathVariable Long[] dictCodes) {
         dictDataService.deleteDictDataByIds(dictCodes);
         return success();
     }

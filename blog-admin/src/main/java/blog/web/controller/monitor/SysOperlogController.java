@@ -2,6 +2,8 @@ package blog.web.controller.monitor;
 
 import java.util.List;
 
+import blog.common.base.resp.Page;
+import blog.common.base.resp.R;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.system.domain.SysOperLog;
@@ -33,7 +33,7 @@ public class SysOperlogController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysOperLog operLog) {
+    public R<Page<?>> list(SysOperLog operLog) {
         startPage();
         List<SysOperLog> list = operLogService.selectOperLogList(operLog);
         return getDataTable(list);
@@ -51,14 +51,14 @@ public class SysOperlogController extends BaseController {
     @Log(title = "操作日志", businessType = BusinessType.DELETE)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
-    public Result remove(@PathVariable Long[] operIds) {
+    public R<Void> remove(@PathVariable Long[] operIds) {
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
 
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/clean")
-    public Result clean() {
+    public R<Void> clean() {
         operLogService.cleanOperLog();
         return success();
     }

@@ -64,6 +64,14 @@ public class R<T> implements Serializable {
         return restResult(null, code, msg);
     }
 
+    public static <T> R<T> warn(String msg) {
+        return restResult(null, HttpStatus.WARN, msg);
+    }
+
+    public static <T> R<T> warn(String msg, T data) {
+        return restResult(data, HttpStatus.WARN, msg);
+    }
+
     private static <T> R<T> restResult(T data, int code, String msg) {
         R<T> apiResult = new R<>();
         apiResult.setCode(code);

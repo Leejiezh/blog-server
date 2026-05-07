@@ -1,13 +1,12 @@
 package blog.biz.service.impl;
 
 import blog.biz.domain.dto.UploadFileDTO;
+import blog.common.base.resp.Page;
 import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.utils.StringUtils;
 import blog.common.utils.minio.MinioUtils;
 import cn.hutool.core.bean.BeanUtil;
-import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
@@ -56,10 +55,9 @@ public class SysFileServiceImpl extends BaseServiceImpl<SysFileMapper, SysFile> 
      * @return 文件信息分页列表
      */
     @Override
-    public TableDataInfo<SysFileVO> queryPageList(SysFileDTO dto, PageQuery pageQuery) {
+    public Page<SysFileVO> queryPageList(SysFileDTO dto, PageQuery pageQuery) {
         LambdaQueryWrapper<SysFile> lqw = buildQueryWrapper(dto);
-        Page<SysFileVO> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
-        return TableDataInfo.build(result);
+        return Page.build(baseMapper.selectVoPage(pageQuery.build(), lqw));
     }
 
     /**

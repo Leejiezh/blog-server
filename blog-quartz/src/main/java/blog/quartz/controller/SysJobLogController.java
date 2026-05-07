@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.quartz.domain.SysJobLog;
@@ -36,7 +36,7 @@ public class SysJobLogController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysJobLog sysJobLog)
+    public R<Page<?>> list(SysJobLog sysJobLog)
     {
         startPage();
         List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
@@ -61,9 +61,9 @@ public class SysJobLogController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:query')")
     @GetMapping(value = "/{jobLogId}")
-    public Result getInfo(@PathVariable Long jobLogId)
+    public R<SysJobLog> getInfo(@PathVariable Long jobLogId)
     {
-        return success(jobLogService.selectJobLogById(jobLogId));
+        return R.ok(jobLogService.selectJobLogById(jobLogId));
     }
 
 
@@ -73,7 +73,7 @@ public class SysJobLogController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
     @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
-    public Result remove(@PathVariable Long[] jobLogIds)
+    public R<Void> remove(@PathVariable Long[] jobLogIds)
     {
         return toAjax(jobLogService.deleteJobLogByIds(jobLogIds));
     }
@@ -84,9 +84,9 @@ public class SysJobLogController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
     @Log(title = "调度日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public Result clean()
+    public R<Void> clean()
     {
         jobLogService.cleanJobLog();
-        return success();
+        return R.ok();
     }
 }

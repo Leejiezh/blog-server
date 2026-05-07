@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import blog.common.annotation.Log;
 import blog.common.base.controller.BaseController;
-import blog.common.base.resp.Result;
-import blog.common.base.resp.TableDataInfo;
+import blog.common.base.resp.R;
+import blog.common.base.resp.Page;
 import blog.common.enums.BusinessType;
 import blog.common.utils.poi.ExcelUtil;
 import blog.system.domain.SysPost;
@@ -39,7 +39,7 @@ public class SysPostController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:post:list')")
     @GetMapping("/list")
-    public TableDataInfo<?> list(SysPost post) {
+    public R<Page<?>> list(SysPost post) {
         startPage();
         List<SysPost> list = postService.selectPostList(post);
         return getDataTable(list);
@@ -59,7 +59,7 @@ public class SysPostController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:post:query')")
     @GetMapping(value = "/{postId}")
-    public Result getInfo(@PathVariable Long postId) {
+    public R<SysPost> getInfo(@PathVariable Long postId) {
         return success(postService.selectPostById(postId));
     }
 
@@ -69,7 +69,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:post:add')")
     @Log(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public Result add(@Validated @RequestBody SysPost post) {
+    public R<Void> add(@Validated @RequestBody SysPost post) {
         if (!postService.checkPostNameUnique(post)) {
             return error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
         } else if (!postService.checkPostCodeUnique(post)) {
@@ -85,7 +85,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:post:edit')")
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public Result edit(@Validated @RequestBody SysPost post) {
+    public R<Void> edit(@Validated @RequestBody SysPost post) {
         if (!postService.checkPostNameUnique(post)) {
             return error("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
         } else if (!postService.checkPostCodeUnique(post)) {
@@ -101,7 +101,7 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:post:remove')")
     @Log(title = "岗位管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
-    public Result remove(@PathVariable Long[] postIds) {
+    public R<Void> remove(@PathVariable Long[] postIds) {
         return toAjax(postService.deletePostByIds(postIds));
     }
 
@@ -109,7 +109,7 @@ public class SysPostController extends BaseController {
      * 获取岗位选择框列表
      */
     @GetMapping("/optionselect")
-    public Result optionselect() {
+    public R<List<SysPost>> optionselect() {
         List<SysPost> posts = postService.selectPostAll();
         return success(posts);
     }

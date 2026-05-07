@@ -9,8 +9,11 @@ import java.util.List;
 /**
  * 表格分页数据对象
  *
+ * @deprecated 请使用 {@link Page} 代替，新的分页类仅包含 rows 和 total 字段，
+ *             code 和 msg 由外层 R&lt;T&gt; 提供，避免字段重复
  * @author leejie
  */
+@Deprecated
 public class TableDataInfo<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 

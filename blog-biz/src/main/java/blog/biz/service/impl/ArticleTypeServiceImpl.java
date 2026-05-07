@@ -3,13 +3,14 @@ package blog.biz.service.impl;
 import blog.biz.domain.ArticleType;
 import blog.biz.mapper.ArticleTypeMapper;
 import blog.biz.service.IArticleTypeService;
+import blog.common.base.resp.Page;
 import blog.common.base.service.impl.BaseServiceImpl;
 import blog.common.exception.ServiceException;
 import blog.common.utils.StringUtils;
 import cn.hutool.core.bean.BeanUtil;
 import blog.common.base.resp.TableDataInfo;
 import blog.common.base.req.PageQuery;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
@@ -54,10 +55,10 @@ public class ArticleTypeServiceImpl extends BaseServiceImpl<ArticleTypeMapper, A
      * @return 文章类型分页列表
      */
     @Override
-    public TableDataInfo<ArticleTypeVO> queryPageList(ArticleTypeDTO dto, PageQuery pageQuery) {
+    public Page<ArticleTypeVO> queryPageList(ArticleTypeDTO dto, PageQuery pageQuery) {
         LambdaQueryWrapper<ArticleType> lqw = buildQueryWrapper(dto);
-        Page<ArticleTypeVO> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
-        return TableDataInfo.build(result);
+        IPage<ArticleTypeVO> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        return Page.build(result);
     }
 
     /**
